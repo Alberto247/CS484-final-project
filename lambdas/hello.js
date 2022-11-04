@@ -1,1 +1,4 @@
-export default () => new Response("Hello world");
+
+const handler = () => new Response("Hello world")
+
+export {handler};
