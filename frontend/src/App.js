@@ -2,14 +2,14 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Topbar } from './components/Navbar/Navbar.js'
 import { Login } from './components/Login/Login.js'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Homepage } from './components/Homepage/Homepage.js';
 
 function App() {
-  const [sneakers, setSneakers] = useState([]);
+ 
 
   useEffect(() => {
-      
+       //const [sneakers, setSneakers] = useState([]);
       // const sneaks = new SneaksAPI();
 
       // //getProducts(keyword, limit, callback) takes in a keyword and limit and returns a product array 
