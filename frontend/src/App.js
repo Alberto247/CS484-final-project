@@ -1,24 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Topbar } from './components/Navbar/Navbar.js'
+import { Login } from './components/Login/Login.js'
+import { useEffect, useState } from 'react';
+import { Homepage } from './components/Homepage/Homepage.js';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  const [sneakers, setSneakers] = useState([]);
+
+  useEffect(() => {
+      
+      // const sneaks = new SneaksAPI();
+
+      // //getProducts(keyword, limit, callback) takes in a keyword and limit and returns a product array 
+      // sneaks.getMostPopular(10, function(err, products){
+      //   console.log(products)
+      // });
+    }, []);
+    
+  return (<>
+    <BrowserRouter>
+    <Topbar></Topbar>
+      <Routes>
+        <Route path="/" component={Homepage}/>
+        <Route path='/login' component={Login} />
+      </Routes>
+    </BrowserRouter>
+  </>
   );
 }
 
