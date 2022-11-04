@@ -6,10 +6,10 @@ import { useEffect } from 'react';
 import { Homepage } from './components/Homepage/Homepage.js';
 
 function App() {
- 
+  //const [sneakers, setSneakers] = useState([]);
 
   useEffect(() => {
-       //const [sneakers, setSneakers] = useState([]);
+       //const SneaksAPI = require('sneaks-api');
       // const sneaks = new SneaksAPI();
 
       // //getProducts(keyword, limit, callback) takes in a keyword and limit and returns a product array 
