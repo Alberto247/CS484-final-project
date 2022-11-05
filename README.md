@@ -16,7 +16,7 @@ While our web app would not have sensitive data, it should keep the users accoun
 [Sneakerscanner](fluffy-dusk-8cf61e.netlify.app)
 
 ## Tech stack diagram
-![image](cs484.png)
+![image](cs484.jpg)
 
 ## Minimum viable product
 The first version of our app will offer the following features:
