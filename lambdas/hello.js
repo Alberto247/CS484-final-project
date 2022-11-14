@@ -5,11 +5,7 @@ export const handler = async () => {
 	//getMostPopular(limit, callback) takes in a limit and returns an array of the current popular products curated by StockX
 	let ret;
 	await sneaks.getProducts("Yeezy Cinder", 10, function(err, products){
-		if(err) {
-			ret = err
-		}
-		else
-			ret = products
+		console.log(products)
 	})
 
 
