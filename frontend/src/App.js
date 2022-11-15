@@ -49,6 +49,7 @@ function App() {
     if(error){
         throw error
     }
+    showSuccess("Log out")
     setLoggedIn(false)
 }
     

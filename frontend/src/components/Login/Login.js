@@ -1,19 +1,17 @@
 import {Form, Button, Row, Col, Container} from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import { useNavigate } from 'react-router-dom'
 
 
 function Login(props){
     const navigate = useNavigate()
-    const [session, setSession] = useState("");
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const supabase = props.supabase
    
     const loginSubmit = async ()=>{
         await signInWithEmail()
-        setSession("Setting Something as session")
         props.setLoggedIn(true)
         navigate("/")
     }
@@ -24,6 +22,7 @@ function Login(props){
           email: username,
           password: password,
         })
+        console.log(data)
         if(error){
             console.log(error)
             props.showError("Something went wrong :(")
@@ -40,6 +39,7 @@ function Login(props){
         const { data, error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
         })
+        console.log(data)
         if(error){
           console.log(error)
           props.showError("Something went wrong :(")
@@ -54,6 +54,7 @@ function Login(props){
         const { data, error } = await supabase.auth.signInWithOAuth({
           provider: 'facebook',
         })
+        console.log(data)
         if(error){
           console.log(error)
           props.showError("Something went wrong :(")
@@ -105,40 +106,5 @@ function Login(props){
       </Container>
       )
 }
-
-// import { Auth, Typography, Button } from '@supabase/ui'
-
-
-
-// function Login(props){
-//     console.log(props.supabase)
-//     const Container = (props) => {
-//         const { user } = Auth.useUser()
-//         if (user)
-//           return (
-//             <>
-//               <Typography.Text>Signed in: {user.email}</Typography.Text>
-//               <Button block onClick={() => props.supabaseClient.auth.signOut()}>
-//                 Sign out
-//               </Button>
-//             </>
-//           )
-//         return props.children
-//     }
-
-    
-    
-//     return (
-//         <>
-//         <Auth.UserContextProvider supabaseClient={props.supabase}>
-//         <Container supabaseClient={props.supabase}>
-//             <Auth supabaseClient={props.supabase} providers={['google']} />
-//         </Container>
-//         </Auth.UserContextProvider>
-//         </>
-//     )
-    
-    
-// }
 
 export {Login};
