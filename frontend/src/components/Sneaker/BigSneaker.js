@@ -32,6 +32,9 @@ function BigSneaker(props) {
                 <h1>{brandContained ? props.sneaker.shoeName : props.sneaker.brand + " " + props.sneaker.shoeName}</h1>
             </div>
             <div className="d-flex p-2">
+                <h2><center>{props.sneaker.description.replace("<p>", "").replace("</p>","")}</center></h2>
+            </div>
+            <div className="d-flex p-2">
                 {resellRange}
             </div>
             {priceList}

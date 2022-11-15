@@ -5,7 +5,7 @@ const fetch = require("node-fetch")
 export const handler = async (event, context, callback) => {
 	//sneaks API
 	let ret = [];
-	let i=0;
+	let i=1;
 	if(event!=undefined && event.queryStringParameters!=undefined){
 		i = event.queryStringParameters.page;
 	}
@@ -34,7 +34,10 @@ export const handler = async (event, context, callback) => {
 		statusCode: 200,
 		body: JSON.stringify({
 			products: ret
-		})
+		}),
+		headers: {
+			'Allow-Access-Control-Origin': '*'
+		}
 	};
 	
 }
