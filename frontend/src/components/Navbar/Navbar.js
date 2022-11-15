@@ -10,7 +10,7 @@ function Topbar(props){
     return(
         <Navbar expand="lg" sticky="top" bg="dark" variant="dark">
             <Container fluid>
-            <Navbar.Brand href="#home">
+            <Navbar.Brand href="#/">
             <span style={{ color: 'white', marginLeft: '1em', fontSize: 25 }}>Sneakerscanner</span>
             </Navbar.Brand>
             <Form className="d-flex">

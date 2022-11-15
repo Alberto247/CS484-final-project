@@ -2,9 +2,16 @@ const SneaksAPI = require('sneaks-api');
 const sneaks = new SneaksAPI();
 const fetch = require("node-fetch")
 
-export const handler = async (s, i) => {
+export const handler = async (event, context, callback) => {
 	//sneaks API
 	let ret = [];
+	let i=1;
+	let s="";
+	if(event!=undefined && event.queryStringParameters!=undefined){
+		i = event.queryStringParameters.page;
+		s = event.queryStringParameters.search;
+	}
+	console.log(s)
 	sneaks.getProducts(s, 16*i, function(err, products){
 		if(products.length() >= 16)
 			ret = products.slice(-16)
