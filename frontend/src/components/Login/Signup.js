@@ -1,7 +1,6 @@
 import {Form, Button, Row, Col, Container} from 'react-bootstrap';
-import { useEffect, useState } from 'react';
-import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+//import { useNavigate } from 'react-router-dom'
 
 function Signup(props){
     const [username, setUsername] = useState('');
@@ -16,6 +15,8 @@ function Signup(props){
                 email: username,
                 password: password,
             })
+            console.log(user)
+            console.log(session)
             if(error){
                 console.log(error)
                 props.showError("Error in SignUp")

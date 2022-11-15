@@ -1,4 +1,5 @@
 import Figure from 'react-bootstrap/Figure'
+import Image from "react-bootstrap/Image";
 function Sneaker(props) {
     
     const max=Math.max(...Object.values(props.sneaker.lowestResellPrice))
@@ -8,14 +9,11 @@ function Sneaker(props) {
     return (
         <>
             <Figure>
-                <Figure.Image
-                    width={171}
-                    height={180}
+                <Image
                     src={props.sneaker.thumbnail}
+                    rounded
                 />
-                
                 <Figure.Caption>
-                    
                     {brandContained ? props.sneaker.shoeName : props.sneaker.brand+" "+props.sneaker.shoeName}
                 </Figure.Caption>
                 <Figure.Caption>
