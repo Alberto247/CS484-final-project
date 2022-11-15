@@ -18,7 +18,7 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   const getInitSneakers = async () => {
-    const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/firstPage?page=2');
+    const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/firstPage?page=1');
     const product = await response.json();
     if (response.ok) {
       console.log(product.products.length);

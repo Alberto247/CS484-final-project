@@ -31,7 +31,7 @@ function SearchBar(props){
   const [searchInput, setSearchInput] = useState("");
 
   const getSneakers = async () => {
-    const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=2&search='+searchInput);
+    const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=1&search='+searchInput);
     const product = await response.json();
     if (response.ok) {
       console.log(product.products.length);

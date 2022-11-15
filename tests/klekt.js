@@ -13,7 +13,6 @@ handler = async () => {
 		let newElem = {"productId":e.productId, "shoeName":e.productName, "brand": e.categoryNames.length>0?e.categoryNames[0]:"", "thumbnail":e.productAsset.preview, "description":e.description, lowestResellPrice:{"klekt":e.priceWithTax.min/100}, resellLinks:{"klekt":"https://www.klekt.com/product/"+e.slug}};
 		ret.push(newElem);
 	})
-	console.log(ret)
 	return {
 		statusCode: 200,
 		body: JSON.stringify({
