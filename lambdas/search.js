@@ -13,7 +13,7 @@ export const handler = async (event, context, callback) => {
 	}
 	console.log(s)
 	sneaks.getProducts(s, 16*i, function(err, products){
-		if(products.length() >= 16)
+		if(products.length >= 16)
 			ret = products.slice(-16)
 		else
 			ret = products
