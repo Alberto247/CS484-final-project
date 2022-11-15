@@ -1,7 +1,7 @@
 import{Sneaker} from './Sneaker';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 function SneakerTable(props){
-    console.log(props.sneakers);
 
     return(
         <div className="d-flex flex-row mb-3 align-items-center justify-content-center flex-wrap m-5"> 

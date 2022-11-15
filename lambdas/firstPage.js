@@ -9,12 +9,13 @@ export const handler = async (event, context, callback) => {
 	if(event!=undefined && event.queryStringParameters!=undefined){
 		i = event.queryStringParameters.page;
 	}
-	console.log(i)
-	sneaks.getMostPopular(16*i, function(err, products){
+	
+	sneaks.getMostPopular(16, function(err, products){
+		console.log(products.length)
 		if(products.length >= 16)
-			ret = products.slice(-16)
+			ret = products.slice(-16);
 		else
-			ret = products
+			ret = products;
 	})
 	while(ret==undefined){
 		await new Promise(r => setTimeout(r, 100));

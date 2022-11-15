@@ -11,13 +11,13 @@ export const handler = async (event, context, callback) => {
 		i = event.queryStringParameters.page;
 		s = event.queryStringParameters.search;
 	}
-	console.log(s)
+
 	sneaks.getProducts(s, 16*i, function(err, products){
 		if(products.length >= 16)
-			ret = products.slice(-16)
+			ret = products.slice(-16);
 		else
-			ret = products
-	})
+			ret = products;
+	});
 	while(ret==undefined){
 		await new Promise(r => setTimeout(r, 100));
 	}

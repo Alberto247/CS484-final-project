@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 function Topbar(props){
     const navigate = useNavigate()
-    console.log(props.isLoggedIn)
+
     return(
         <Navbar expand="lg" sticky="top" bg="dark" variant="dark">
           <Container fluid>
@@ -34,7 +34,7 @@ function SearchBar(props){
     const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=2&search='+searchInput);
     const product = await response.json();
     if (response.ok) {
-      console.log(product.length);
+      console.log(product.products.length);
       props.setSneakers(product.products);
     } else {
       throw product;  
