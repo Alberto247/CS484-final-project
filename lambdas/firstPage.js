@@ -10,12 +10,8 @@ export const handler = async (event, context, callback) => {
 		i = event.queryStringParameters.page;
 	}
 	
-	sneaks.getMostPopular(16, function(err, products){
-		console.log(products.length)
-		if(products.length >= 16)
-			ret = products.slice(-16);
-		else
-			ret = products;
+	sneaks.getMostPopular(10, function(err, products) {
+		ret = products
 	})
 	while(ret==undefined){
 		await new Promise(r => setTimeout(r, 100));
@@ -29,7 +25,6 @@ export const handler = async (event, context, callback) => {
 	const api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i
 	let unparsed = await(await fetch(api)).json();
 	unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"]
-	console.log(unparsed.length)
 	unparsed.forEach((e)=>{
 		let newElem = {"productId":e.productId, "shoeName":e.productName, "brand": e.categoryNames.length>0?e.categoryNames[0]:"", "thumbnail":e.productAsset.preview, "description":e.description, "lowestResellPrice":{"klekt":e.priceWithTax.min/100}, "resellLinks":{"klekt":"https://www.klekt.com/product/"+e.slug}};
 		ret.push(newElem);
