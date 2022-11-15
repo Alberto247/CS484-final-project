@@ -16,20 +16,20 @@ const supabase = createClient('https://otbiiqvlokfkqkyekqlm.supabase.co', 'eyJhb
 function App() {
   const [sneakers, setSneakers] = useState([]);
   const [isLoggedIn, setLoggedIn] = useState(false);
+
+  const getInitSneakers = async () => {
+    const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/firstPage?page=2');
+    const product = await response.json();
+    if (response.ok) {
+      console.log(product.length);
+      setSneakers(product.products);
+    } else {
+      throw product;  
+    }
+  };
   
   useEffect(() => {
-    const getSneakers = async () => {
-      const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/firstPage?page=1');
-      const product = await response.json();
-      if (response.ok) {
-        console.log(product.products);
-        setSneakers(product.products);
-      } else {
-        throw product;  
-      }
-    };
-
-    getSneakers();
+    getInitSneakers();
   }, []);
 
 
@@ -53,7 +53,7 @@ function App() {
   return (<>
     <ToastContainer />
     <HashRouter>
-    <Topbar isLoggedIn={isLoggedIn} signOut={signOut}></Topbar>
+    <Topbar isLoggedIn={isLoggedIn} setSneakers={setSneakers} getInitSneakers={getInitSneakers} signOut={signOut}></Topbar>
       <Routes>
         <Route path="/" element={<SneakerTable sneakers={sneakers}></SneakerTable>}/>
         <Route path='/login' element={<Login supabase={supabase} showSuccess={showSuccess} showError={showError} setLoggedIn={setLoggedIn}/>} />
