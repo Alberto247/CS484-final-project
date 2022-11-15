@@ -1,0 +1,7 @@
+declare enum calls {
+    getMostWatchedItems = 0,
+    getRelatedCategoryItems = 1,
+    getSimilarItems = 2,
+    getVersion = 3
+}
+export default calls;
