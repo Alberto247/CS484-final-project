@@ -10,7 +10,7 @@ export const handler = async (event, context, callback) => {
 		i = event.queryStringParameters.page;
 	}
 	
-	sneaks.getMostPopular(10, function(err, products) {
+	sneaks.getMostPopular(10, function(err, products) { //gives always 7 sneaker
 		ret = products
 	})
 	while(ret==undefined){
