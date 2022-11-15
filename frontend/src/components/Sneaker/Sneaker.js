@@ -11,13 +11,9 @@ function Sneaker(props) {
                 <Figure.Image
                     width={171}
                     height={180}
-                    src={props.sneaker.thumbnails}
-                />
-                <Image
                     src={props.sneaker.thumbnail}
-                    rounded
-                    height={"500vh"}
                 />
+                
                 <Figure.Caption>
                     
                     {brandContained ? props.sneaker.shoeName : props.sneaker.brand+" "+props.sneaker.shoeName}
