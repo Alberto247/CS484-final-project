@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom'
 function Topbar(props){
     const navigate = useNavigate()
+    console.log(props.isLoggedIn)
     return(
         <Navbar expand="lg" sticky="top" bg="dark" variant="dark">
             <Container fluid>
@@ -20,10 +21,10 @@ function Topbar(props){
               aria-label="Search"/>
             <Button variant="outline-success">Search</Button>
           </Form>
-          {//props.loggedIn ?
-            //<Button variant="light" active onClick={() => { props.logout(); navigate("./") }}>
-               //logout
-            //</Button> :
+          {props.isLoggedIn ?
+           <Button variant="light" active onClick={() => { props.signOut(); navigate("/") }}>
+               Logout
+            </Button> :
           <Button variant="light" active onClick={() => navigate('/login')}>Login</Button>}
             </Container>
         </Navbar>
