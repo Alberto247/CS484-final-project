@@ -2,9 +2,14 @@ const SneaksAPI = require('sneaks-api');
 const sneaks = new SneaksAPI();
 const fetch = require("node-fetch")
 
-export const handler = async (i) => {
+export const handler = async (event, context, callback) => {
 	//sneaks API
 	let ret = [];
+	let i=0;
+	if(event!=undefined && event.queryStringParameters!=undefined){
+		i = event.queryStringParameters.page;
+	}
+	console.log(i)
 	sneaks.getMostPopular(16*i, function(err, products){
 		ret = products.slice(-16)
 	})
