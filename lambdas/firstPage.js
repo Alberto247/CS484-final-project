@@ -10,9 +10,16 @@ export const handler = async (event, context, callback) => {
 		i = event.queryStringParameters.page;
 	}
 	
-	sneaks.getMostPopular(10, function(err, products) {
-		ret = products
-	})
+	sneaks.getMostPopular(16, function(err, products) { //gives always 7 sneaker
+		products = products.filter((e)=>{
+			if(Object.keys(e.lowestResellPrice).length == 3) {
+				e = {"productId":e._id, "shoeName":e.shoeName, "brand": e.brand, "thumbnail":e.thumbnail, "description":e.description, "lowestResellPrice":e.lowestResellPrice, "resellLinks":e.resellLinks};
+				return e;
+			}
+		});
+		ret = products;
+	});
+
 	while(ret==undefined){
 		await new Promise(r => setTimeout(r, 100));
 	}

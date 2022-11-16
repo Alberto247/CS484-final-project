@@ -4,37 +4,37 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react';
+import { useState } from "react";
 
 function Topbar(props){
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
-    return(
-        <Navbar expand="lg" sticky="top" bg="dark" variant="dark">
-          <Container fluid>
-          <Navbar.Brand href="#/" onClick={props.getInitSneakers}>
-          <span style={{ color: 'white', marginLeft: '1em', fontSize: 25 }}>Sneakerscanner</span>
-          </Navbar.Brand>
-          <SearchBar setSneakers={props.setSneakers}/>
-          {props.isLoggedIn ?
-           <Button variant="light" active onClick={() => { props.signOut(); navigate("/") }}>
-               Logout
-            </Button> :
-          <Button variant="light" active onClick={() => navigate('/login')}>Login</Button>}
-            </Container>
-        </Navbar>
-    )
+  return(
+    <Navbar expand="lg" sticky="top" bg="dark" variant="dark">
+      <Container fluid>
+      <Navbar.Brand href="#/" onClick={() => {props.getInitSneakers(); props.setSearch("");}}>
+      <span style={{ color: 'white', marginLeft: '1em', fontSize: 25 }}>Sneakerscanner</span>
+      </Navbar.Brand>
+      <SearchBar setSneakers={props.setSneakers} setSearch={props.setSearch} searchInput={props.searchInput} setSearchInput={props.setSearchInput}/>
+      {props.isLoggedIn ?
+        <Button variant="light" active onClick={() => { props.signOut(); navigate("/") }}>
+            Logout
+        </Button> :
+      <Button variant="light" active onClick={() => navigate('/login')}>Login</Button>}
+        </Container>
+    </Navbar>
+  )
 }
 
 function SearchBar(props){
 
-  const [searchInput, setSearchInput] = useState("");
-
+  const [input, setInput] = useState("");
+  
   const getSneakers = async () => {
-    const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=1&search='+searchInput);
+    const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=1&search='+input);
     const product = await response.json();
-    if (response.ok) {
-      console.log(product.products.length);
+    if(response.ok) {
+      console.log(product);
       props.setSneakers(product.products);
     } else {
       throw product;  
@@ -43,13 +43,15 @@ function SearchBar(props){
 
   const handleChange = (e) => {
     e.preventDefault();
-    setSearchInput(e.target.value);
+    setInput(e.target.value);
   };
 
-  const handleSubmit = async () => { 
-    if(searchInput.length > 0) {
+  const handleSubmit = async (e) => { 
+    e.preventDefault();
+    if(input.length > 0) {
       await getSneakers();
-      setSearchInput("");
+      props.setSearch(input);
+      setInput("");
     }
   };
 
@@ -61,7 +63,7 @@ function SearchBar(props){
       className="me-2"
       onChange={handleChange}
       aria-label="Search"
-      value={searchInput}
+      value={input}
       />
     <Button variant="outline-success" onClick={handleSubmit}>Search</Button>
   </Form>

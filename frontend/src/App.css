@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+.sneaker-main-card {
+  width: 500px;
+  height: 700px;
+  display:flex;
+  align-items:space-between;
+  justify-content:space-between;
+  flex-wrap:wrap;
+}
+
+.sneaker-img {
+  height: auto;
+  max-height: 500px;
+  width: auto;
+  max-width: 500px;
+}
+
