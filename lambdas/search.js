@@ -13,12 +13,6 @@ export const handler = async (event, context, callback) => {
 	}
 
 	sneaks.getProducts(s, 16*i, function(err, products){
-		products = products.filter((e)=>{
-			if(Object.keys(e.lowestResellPrice).length == 3) {
-				e = {"productId":e._id, "shoeName":e.shoeName, "brand": e.brand, "thumbnail":e.thumbnail, "description":e.description, "lowestResellPrice":e.lowestResellPrice, "resellLinks":e.resellLinks};
-				return e;
-			}
-		});
 		if(products.length >= 16)
 			ret = products.slice(-16);
 		else
