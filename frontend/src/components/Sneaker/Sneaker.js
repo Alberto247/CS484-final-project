@@ -4,13 +4,17 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 function Sneaker(props) {
+    let resellRange="Price Not available";
     const navigate = useNavigate()
-    const max=Math.max(...Object.values(props.sneaker.lowestResellPrice))
-    const min=Math.min(...Object.values(props.sneaker.lowestResellPrice))
-    let resellRange="Price: $"+min+"-$"+max;
-    if(min===max){
-        resellRange="Price: $"+min
+    if(props.sneaker.lowestResellPrice !== undefined) {
+        const max=Math.max(...Object.values(props.sneaker.lowestResellPrice));
+        const min=Math.min(...Object.values(props.sneaker.lowestResellPrice));
+        resellRange="Price: $"+min+"-$"+max;
+        if(min===max){
+            resellRange="Price: $"+min;
+        }
     }
+    
     const brandContained=props.sneaker.shoeName.includes(props.sneaker.brand)
 /*     return (
         <div className="d-flex p-2 flex-column">
