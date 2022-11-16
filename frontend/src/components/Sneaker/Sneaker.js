@@ -41,16 +41,18 @@ function Sneaker(props) {
     )*/
      return (
         <div className="d-flex p-2 flex-column">
-        <Card raised className="sneaker-main-card" style={{ height: '100%', backgroundColor:'#293133' }}>
-        <Card.Img className="sneaker-img" variant="top" src={props.sneaker.thumbnail} />
-        <Card.Body>
-            <Card.Title  style={{textDecoration: "none", color:"white", "width":"400px"}}>{brandContained ? props.sneaker.shoeName : props.sneaker.brand+" "+props.sneaker.shoeName}</Card.Title>
-            <Card.Text style={{textDecoration: "none", color:"white", "width":"200px"}}>
-            {resellRange}
-            </Card.Text>
-            <Button variant="success" onClick={(ev) => {ev.preventDefault();navigate("/view/"+props.sneaker.shoeName)}}>Show prices</Button>
-        </Card.Body>
-        </Card>
+        <div onClick={(ev)=>{ev.preventDefault();navigate("/view/"+props.sneaker.shoeName)}}>
+            <Card raised className="sneaker-main-card" style={{ height: '100%', backgroundColor:'#293133' }}>
+            <Card.Img className="sneaker-img" variant="top" src={props.sneaker.thumbnail} />
+            <Card.Body>
+                <Card.Title  style={{textDecoration: "none", color:"white", "width":"400px"}}>{brandContained ? props.sneaker.shoeName : props.sneaker.brand+" "+props.sneaker.shoeName}</Card.Title>
+                <Card.Text style={{textDecoration: "none", color:"white", "width":"200px"}}>
+                {resellRange}
+                </Card.Text>
+                <Button variant="success" onClick={(ev) => {ev.preventDefault();navigate("/view/"+props.sneaker.shoeName)}}>Show prices</Button>
+            </Card.Body>
+            </Card>
+        </div>
         </div>
   );
 } 
