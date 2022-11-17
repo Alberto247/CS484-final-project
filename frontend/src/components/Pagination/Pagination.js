@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
 function Pag(props) {
@@ -19,11 +18,11 @@ function Pag(props) {
   return (
     <Pagination>
       <Pagination.First onClick={() => {getSneakers(1); props.setActivePage(1);}}/>
-      {activePage > 1 ? <Pagination.Prev onClick={() => {getSneakers(activePage-1); props.setActivePage(activePage-1);}}/> : ""}
+      {props.activePage > 1 ? <Pagination.Prev onClick={() => {getSneakers(props.activePage-1); props.setActivePage(props.activePage-1);}}/> : ""}
 
-      <Pagination.Item active>{activePage}</Pagination.Item>
+      <Pagination.Item active>{props.activePage}</Pagination.Item>
 
-      {activePage < 10 ? <Pagination.Next onClick={() => {getSneakers(activePage+1); props.setActivePage(activePage+1);}}/> : ""}
+      {props.activePage < 10 ? <Pagination.Next onClick={() => {getSneakers(props.activePage+1); props.setActivePage(props.activePage+1);}}/> : ""}
       <Pagination.Last onClick={() => {getSneakers(10); props.setActivePage(10);}}/>
     </Pagination>
   );
