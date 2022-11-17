@@ -17,7 +17,7 @@ function Topbar(props){
       </Navbar.Brand>
       <SearchBar setSneakers={props.setSneakers} setSearch={props.setSearch} setLoading={props.setLoading}/>
       {props.isLoggedIn ?
-        <Button variant="light" active onClick={() => { props.signOut(); navigate("/") }}>
+        <Button variant="light" active onClick={() => { props.signOut(); navigate("/"); }}>
             Logout
         </Button> :
       <Button variant="light" active onClick={() => navigate('/login')}>Login</Button>}
@@ -52,6 +52,7 @@ function SearchBar(props){
     e.preventDefault();
     if(input.length > 0) {
       setInput("");
+      navigate("/");
       props.setSearch(input);
       await getSneakers();
     }
