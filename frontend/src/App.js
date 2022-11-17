@@ -25,7 +25,7 @@ function App() {
     const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/firstPage?page=1');
     const product = await response.json();
     if(response.ok) {
-      console(product.products.length);
+      console.log(product.products.length);
       setSneakers(product.products);
     } else {
       throw product;  
