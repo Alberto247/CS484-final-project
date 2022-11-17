@@ -27,7 +27,7 @@ function Topbar(props){
 }
 
 function SearchBar(props){
-
+  const navigate = useNavigate()
   const [input, setInput] = useState("");
   
   const getSneakers = async () => {
