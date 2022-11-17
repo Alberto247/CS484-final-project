@@ -18,6 +18,7 @@ function App() {
   const [sneakers, setSneakers] = useState([]);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [search, setSearch] = useState("");
+  const [activePage, setActivePage] = useState(1);
 
   const getInitSneakers = async () => {
     setLoading(true);
@@ -57,9 +58,9 @@ function App() {
   return (<>
     <ToastContainer />
       <HashRouter>
-      <Topbar isLoggedIn={isLoggedIn} setSneakers={setSneakers} getInitSneakers={getInitSneakers} signOut={signOut} setSearch={setSearch} setLoading={setLoading}></Topbar>
+      <Topbar isLoggedIn={isLoggedIn} setSneakers={setSneakers} getInitSneakers={getInitSneakers} signOut={signOut} setSearch={setSearch} setLoading={setLoading} setActivePage={setActivePage}></Topbar>
         <Routes>
-          <Route path="/" element={<SneakerTable sneakers={sneakers} search={search} setSearch={setSearch} setSneakers={setSneakers} loading={loading} setLoading={setLoading}/>}/>
+          <Route path="/" element={<SneakerTable sneakers={sneakers} search={search} setSearch={setSearch} setSneakers={setSneakers} loading={loading} setLoading={setLoading} activePage={activePage} setActivePage={setActivePage}/>}/>
           <Route path='/login' element={<Login supabase={supabase} showSuccess={showSuccess} showError={showError} setLoggedIn={setLoggedIn}/>} />
           <Route path='/signup' element={<Signup supabase={supabase} showSuccess={showSuccess} showError={showError}/>}/>
           <Route path='/view/:sneaker' element={<SneakerFinder sneakers={sneakers}/>}></Route>
