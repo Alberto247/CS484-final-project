@@ -32,9 +32,8 @@ function SearchBar(props){
   
   const getSneakers = async () => {
     const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=1&search='+input);
-    const product = await response.json();
     if(response.ok) {
-      console.log(product);
+      const product = await response.json();
       props.setSneakers(product.products);
     } else {
       throw product;  
@@ -49,9 +48,9 @@ function SearchBar(props){
   const handleSubmit = async (e) => { 
     e.preventDefault();
     if(input.length > 0) {
-      await getSneakers();
-      props.setSearch(input);
       setInput("");
+      props.setSearch(input);
+      await getSneakers();
     }
   };
 
