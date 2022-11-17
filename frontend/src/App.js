@@ -23,9 +23,10 @@ function App() {
   const getInitSneakers = async () => {
     setLoading(true)
     const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/firstPage?page=1');
+    const product = await response.json();
     if(response.ok) {
-      const product = await response.json();
-      props.setSneakers(product.products);
+      console(product.products.length);
+      setSneakers(product.products);
     } else {
       throw product;  
     }
