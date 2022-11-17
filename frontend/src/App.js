@@ -1,7 +1,6 @@
 import './App.css';
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import { Topbar } from './components/Navbar/Navbar.js'
-import { Loading } from './components/Loading/Loading';
 import { Login } from './components/Login/Login.js'
 import { useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js'
@@ -21,7 +20,7 @@ function App() {
   const [search, setSearch] = useState("");
 
   const getInitSneakers = async () => {
-    setLoading(true)
+    setLoading(true);
     const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/firstPage');
     const product = await response.json();
     if(response.ok) {
@@ -30,7 +29,7 @@ function App() {
     } else {
       throw product;  
     }
-    setLoading(false)
+    setLoading(false);
   };
   
   useEffect(() => {
@@ -54,16 +53,13 @@ function App() {
     showSuccess("Log out")
     setLoggedIn(false)
   }
-  if(loading===true){
-      return <Loading/>
-  }
 
   return (<>
     <ToastContainer />
       <HashRouter>
-      <Topbar isLoggedIn={isLoggedIn} setSneakers={setSneakers} getInitSneakers={getInitSneakers} signOut={signOut} setSearch={setSearch}></Topbar>
+      <Topbar isLoggedIn={isLoggedIn} setSneakers={setSneakers} getInitSneakers={getInitSneakers} signOut={signOut} setSearch={setSearch} setLoading={setLoading}></Topbar>
         <Routes>
-          <Route path="/" element={<SneakerTable sneakers={sneakers} search={search} setSearch={setSearch} setSneakers={setSneakers} setLoading={setLoading}/>}/>
+          <Route path="/" element={<SneakerTable sneakers={sneakers} search={search} setSearch={setSearch} setSneakers={setSneakers} loading={loading} setLoading={setLoading}/>}/>
           <Route path='/login' element={<Login supabase={supabase} showSuccess={showSuccess} showError={showError} setLoggedIn={setLoggedIn}/>} />
           <Route path='/signup' element={<Signup supabase={supabase} showSuccess={showSuccess} showError={showError}/>}/>
           <Route path='/view/:sneaker' element={<SneakerFinder sneakers={sneakers}/>}></Route>

@@ -7,12 +7,9 @@ export const handler = async (event, context, callback) => {
 	let ret = undefined;
 	
 	//sneaks API
-	sneaks.getMostPopular(100, function(err, products) { //always return 7 sneakers
+	sneaks.getMostPopular(16, function(err, products) { 
 		if(products) {
-			if(products.length >= 16)
-				ret = products.slice(-16);
-			else
-				ret = products;
+			ret = products;
 		}
 		else 
 			ret = []
