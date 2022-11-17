@@ -32,8 +32,9 @@ function SearchBar(props){
   
   const getSneakers = async () => {
     const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=1&search='+input);
+    const product = await response.json();
     if(response.ok) {
-      const product = await response.json();
+      console(product.products.length);
       props.setSneakers(product.products);
     } else {
       throw product;  
