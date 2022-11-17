@@ -7,7 +7,7 @@ export const handler = async (event, context, callback) => {
 	let ret = undefined;
 	
 	//sneaks API
-	sneaks.getMostPopular(50, function(err, products) { 
+	sneaks.getMostPopular(100, function(err, products) { 
 		if(products) {
 			ret = products;
 		}
