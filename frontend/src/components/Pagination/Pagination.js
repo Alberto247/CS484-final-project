@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 
 function Pag(props) {
-  const [activePage, setActivePage] = useState(1);
 
   const getSneakers = async (i) => {
     props.setLoading(true);
@@ -19,13 +18,13 @@ function Pag(props) {
 
   return (
     <Pagination>
-      <Pagination.First onClick={() => {getSneakers(1); setActivePage(1);}}/>
-      {activePage > 1 ? <Pagination.Prev onClick={() => {getSneakers(activePage-1); setActivePage(activePage-1);}}/> : ""}
+      <Pagination.First onClick={() => {getSneakers(1); props.setActivePage(1);}}/>
+      {activePage > 1 ? <Pagination.Prev onClick={() => {getSneakers(activePage-1); props.setActivePage(activePage-1);}}/> : ""}
 
       <Pagination.Item active>{activePage}</Pagination.Item>
 
-      {activePage < 10 ? <Pagination.Next onClick={() => {getSneakers(activePage+1); setActivePage(activePage+1);}}/> : ""}
-      <Pagination.Last onClick={() => {getSneakers(10); setActivePage(10);}}/>
+      {activePage < 10 ? <Pagination.Next onClick={() => {getSneakers(activePage+1); props.setActivePage(activePage+1);}}/> : ""}
+      <Pagination.Last onClick={() => {getSneakers(10); props.setActivePage(10);}}/>
     </Pagination>
   );
 }

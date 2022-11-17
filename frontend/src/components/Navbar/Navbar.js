@@ -15,7 +15,7 @@ function Topbar(props){
       <Navbar.Brand href="#/" onClick={() => {props.getInitSneakers(); props.setSearch("");}}>
       <span style={{ color: 'white', marginLeft: '1em', fontSize: 25 }}>Sneakerscanner</span>
       </Navbar.Brand>
-      <SearchBar setSneakers={props.setSneakers} setSearch={props.setSearch} setLoading={props.setLoading}/>
+      <SearchBar setSneakers={props.setSneakers} setSearch={props.setSearch} setLoading={props.setLoading} setActivePage={props.setActivePage}/>
       {props.isLoggedIn ?
         <Button variant="light" active onClick={() => { props.signOut(); navigate("/"); }}>
             Logout
@@ -54,6 +54,7 @@ function SearchBar(props){
       setInput("");
       navigate("/");
       props.setSearch(input);
+      props.setActivePage(1);
       await getSneakers();
     }
   };
