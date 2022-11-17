@@ -5,13 +5,9 @@ const fetch = require("node-fetch")
 export const handler = async (event, context, callback) => {
 	
 	let ret = undefined;
-	let i=1;
-	if(event!=undefined && event.queryStringParameters!=undefined){
-		i = event.queryStringParameters.page;
-	}
 	
 	//sneaks API
-	sneaks.getMostPopular(16*i, function(err, products) { 
+	sneaks.getMostPopular(function(err, products) { 
 		if(products) {
 			if(products.length >= 16)
 				ret = products.slice(-16);
@@ -30,8 +26,8 @@ export const handler = async (event, context, callback) => {
 	const data = await (await fetch("https://www.klekt.com/brands")).text();
 	let api_path = data.split('/_buildManifest.js" defer=""></script>')[0].split('<script src="/_next/static/');
 	api_path = api_path[api_path.length - 1]
-	const api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i
-	let unparsed = await(await fetch(api)).json();
+	const api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page=1"
+	let unparsed = await (await fetch(api)).json();
 	if(unparsed) {
 		unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];
 		unparsed.forEach((e) => {
