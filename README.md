@@ -22,8 +22,8 @@ While our web app would not have sensitive data, it should keep the users accoun
 The first version of our app offers the following features:
 - The results are taken from [sneaks-api](https://npm.io/package/sneaks-api) and [Klekt](https://www.klekt.com/us)
 - Home page showing the most popular sneakers
-- Clicking on a sneaker opens another page with a description of the sneaker and links to the sites that purchase it with the cost
-- Navbar allows to login (Google, Facebook or new account) and to search for a sneaker
+- Clicking on a sneaker opens another page with a description of the sneaker and links to the sites that purchase it with the price range
+- Navbar allows to login (Google, Facebook or email) and to search for a sneaker
 - Clicking on the name of the site in the navbar returns to the Home Page
 - When a search is performed pagination appears and allows to change result pages
 
