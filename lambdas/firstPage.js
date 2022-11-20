@@ -5,6 +5,7 @@ const fetch = require("node-fetch")
 export const handler = async (event, context, callback) => {
 	
 	let ret = undefined;
+	let wrong = ["shirt, jersey, bag, trousers, cap, pants"];
 	
 	//sneaks API
 	sneaks.getMostPopular(16, function(err, products) { 
@@ -12,7 +13,7 @@ export const handler = async (event, context, callback) => {
 			ret = products;
 		}
 		else 
-			ret = []
+			ret = [];
 	});
 
 	while(ret === undefined){

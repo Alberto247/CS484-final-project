@@ -1,8 +1,9 @@
 import {Form, Button, Row, Col, Container} from 'react-bootstrap';
 import { useState } from 'react';
-//import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function Signup(props){
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [repeatedPwd, setRepeatedPwd] = useState('');
@@ -10,23 +11,22 @@ function Signup(props){
 
     async function signupSubmit(){
         
-        if(repeatedPwd === password){
+        if(repeatedPwd === password) {
             const { user, session, error } = await supabase.auth.signUp({
                 email: username,
                 password: password,
-            })
-            console.log(user)
-            console.log(session)
+            });
+            console.log(user);
+            console.log(session);
             if(error){
-                console.log(error)
-                props.showError("Error in SignUp")
-                throw error
+                console.log(error);
+                props.showError("Error in SignUp");
+                throw error;
             }
-            
-            props.showSuccess("Check your email address!")
-            
-        }else{
-            props.showError("Passwords are not equals")
+            navigate("/login");
+            props.showSuccess("Check your email address!");
+        } else {
+            props.showError("Passwords are not equals");
         }
     }
 
@@ -61,4 +61,4 @@ function Signup(props){
         );
 }
 
-export {Signup}
+export {Signup};

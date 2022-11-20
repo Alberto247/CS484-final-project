@@ -33,7 +33,7 @@ export const handler = async (event, context, callback) => {
 	const data = await (await fetch("https://www.klekt.com/brands")).text();
 	let api_path = data.split('/_buildManifest.js" defer=""></script>')[0].split('<script src="/_next/static/');
 	api_path = api_path[api_path.length - 1]
-	const api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i+"&Search="+s
+	const api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i+"&search="+s
 	let unparsed = await(await fetch(api)).json();
 	if(unparsed) {
 		unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];

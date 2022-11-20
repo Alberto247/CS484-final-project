@@ -10,7 +10,7 @@ export const handler = async () => {
     
 
     eBay.buy.browse.search({
-    q: 'sneakers',
+        q: 'sneakers',
     })
     .then(result => {
         ret = result

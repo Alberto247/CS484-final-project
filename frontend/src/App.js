@@ -12,8 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 const supabase = createClient('https://otbiiqvlokfkqkyekqlm.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90YmlpcXZsb2tma3FreWVrcWxtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc1OTQ0MTYsImV4cCI6MTk4MzE3MDQxNn0.Am6ZmsQnKvDy7pEM1af-LkYlZkVV8QzupW3gdcoLbzc')
 
-
 function App() {
+  
   const [loading, setLoading] = useState(false);
   const [sneakers, setSneakers] = useState([]);
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -47,12 +47,12 @@ function App() {
   }
 
   async function signOut() {
-    const { error } = await supabase.auth.signOut()
+    const { error } = await supabase.auth.signOut();
     if(error){
-        throw error
+        throw error;
     }
-    showSuccess("Log out")
-    setLoggedIn(false)
+    showSuccess("Log out");
+    setLoggedIn(false);
   }
 
   return (<>
