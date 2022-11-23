@@ -2,10 +2,8 @@ const SneaksAPI = require('sneaks-api');
 const sneaks = new SneaksAPI();
 const fetch = require("node-fetch")
 const Redis = require("ioredis");
+const handler = async (event, context, callback) => {
 
-export const handler = async (event, context, callback) => {
-
-	
 	let ret = undefined;
 	let i=1;
 	let s="";
@@ -87,3 +85,5 @@ export const handler = async (event, context, callback) => {
 	};
 	
 }
+
+handler().then((e)=>{console.log(e)})

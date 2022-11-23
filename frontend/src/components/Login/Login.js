@@ -10,6 +10,10 @@ function Login(props){
     const [password, setPassword] = useState('');
     const supabase = props.supabase;
 
+    if(props.session!==null){
+      navigate("/")
+    }
+
     async function signInWithEmail() {
         const { data, error } = await supabase.auth.signInWithPassword({
           email: username,

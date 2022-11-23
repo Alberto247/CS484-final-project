@@ -1,6 +1,11 @@
 import Pagination from 'react-bootstrap/Pagination';
+import { useEffect } from 'react';
 
 function Pag(props) {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const getSneakers = async (i) => {
     props.setLoading(true);
@@ -17,13 +22,11 @@ function Pag(props) {
 
   return (
     <Pagination>
-      <Pagination.First onClick={() => {getSneakers(1); props.setActivePage(1);}}/>
-      {props.activePage > 1 ? <Pagination.Prev onClick={() => {getSneakers(props.activePage-1); props.setActivePage(props.activePage-1);}}/> : ""}
-
+      {props.activePage > 2 ? <Pagination.Item onClick={() => {getSneakers(props.activePage-2); props.setActivePage(props.activePage-2);}}>{props.activePage-2}</Pagination.Item> : ""}
+      {props.activePage > 1 ? <Pagination.Item onClick={() => {getSneakers(props.activePage-1); props.setActivePage(props.activePage-1);}}>{props.activePage-1}</Pagination.Item> : ""}
       <Pagination.Item active>{props.activePage}</Pagination.Item>
-
-      {props.activePage < 10 ? <Pagination.Next onClick={() => {getSneakers(props.activePage+1); props.setActivePage(props.activePage+1);}}/> : ""}
-      <Pagination.Last onClick={() => {getSneakers(10); props.setActivePage(10);}}/>
+      <Pagination.Item onClick={() => {getSneakers(props.activePage+1); props.setActivePage(props.activePage+1);}}>{props.activePage+1}</Pagination.Item>
+      <Pagination.Item onClick={() => {getSneakers(props.activePage+2); props.setActivePage(props.activePage+2);}}>{props.activePage+2}</Pagination.Item>
     </Pagination>
   );
 }

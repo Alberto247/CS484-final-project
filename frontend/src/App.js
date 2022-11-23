@@ -29,7 +29,7 @@ function App() {
       setSession(session)
     })
 
-  }, [])
+  }, []);
   
 
   const getInitSneakers = async () => {
@@ -74,7 +74,7 @@ function App() {
       <Topbar session={session} setSneakers={setSneakers} getInitSneakers={getInitSneakers} signOut={signOut} setSearch={setSearch} setLoading={setLoading} setActivePage={setActivePage}></Topbar>
         <Routes>
           <Route path="/" element={<SneakerTable sneakers={sneakers} search={search} setSearch={setSearch} setSneakers={setSneakers} loading={loading} setLoading={setLoading} activePage={activePage} setActivePage={setActivePage}/>}/>
-          <Route path='/login' element={<Login supabase={supabase} showSuccess={showSuccess} showError={showError}/>} />
+          <Route path='/login' element={<Login supabase={supabase} showSuccess={showSuccess} showError={showError} session={session}/>} />
           <Route path='/signup' element={<Signup supabase={supabase} showSuccess={showSuccess} showError={showError}/>}/>
           <Route path='/view/:sneaker' element={<SneakerFinder sneakers={sneakers}/>}></Route>
         </Routes>

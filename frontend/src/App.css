@@ -38,24 +38,26 @@
 }
 
 .sneaker-main-card {
-  width: 500px;
-  height: 700px;
+  width: 434px;
+  height: 468px;
   display:flex;
   align-items:space-between;
   justify-content:space-between;
   flex-wrap:wrap;
+  position: relative;
   
 }
 
-.sneaker-img {
-  height: auto;
-  max-height: 500px;
-  width: auto;
-  max-width: 500px;
-}
+/*.sneaker-img {
+    display: block;
+      width: 100%;
+      height: auto;
+      position: absolute;
+      bottom: 0;
+}*/
 
 .card-img-top {
   width: 100%;
-  height: 25vw;
+  height: auto;
   object-fit: cover;
 }
