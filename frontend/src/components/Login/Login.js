@@ -9,8 +9,7 @@ function Login(props){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const supabase = props.supabase;
-   
-    
+
     async function signInWithEmail() {
         const { data, error } = await supabase.auth.signInWithPassword({
           email: username,
@@ -37,9 +36,6 @@ function Login(props){
           props.showError("Something went wrong :(");
           throw error;
         }
-        navigate("/");
-        props.setLoggedIn(true);
-        props.showSuccess("Welcome back!");
     }
 
     async function signInWithFacebook() {
@@ -52,9 +48,7 @@ function Login(props){
           props.showError("Something went wrong :(");
           throw error;
         } 
-        navigate("/");
-        props.setLoggedIn(true);
-        props.showSuccess("Welcome back!");
+       
     }
     
     
@@ -62,12 +56,12 @@ function Login(props){
         <Container fluid>
           <Row className="justify-content-md-center">
             <Col sm={6}>
-            <FacebookLoginButton onClick={() => signInWithFacebook()} />
+            <FacebookLoginButton onClick={() => {signInWithFacebook();}} />
             </Col>
         </Row>
         <Row className="justify-content-md-center">
             <Col sm={6}>
-            <GoogleLoginButton onClick={() => signInWithGoogle()}    />
+            <GoogleLoginButton onClick={() => {signInWithGoogle();}}/>
             </Col>
         </Row>
         <Row className="justify-content-md-center">

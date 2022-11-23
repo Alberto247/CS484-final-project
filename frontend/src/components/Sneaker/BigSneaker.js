@@ -20,7 +20,7 @@ function BigSneaker(props) {
     const brandContained = props.sneaker.shoeName.includes(props.sneaker.brand)
 
     const priceList = Object.keys(props.sneaker.resellLinks).map((reseller) => {
-        return (<a href={props.sneaker.resellLinks[reseller]} style={{textDecoration: "none", color:"black", "width":"400px"}}><div className="d-flex align-items-start justify-content-center border border-success m-2">
+        return (<a href={props.sneaker.resellLinks[reseller]} target="_blank" rel="noreferrer" style={{textDecoration: "none", color:"black", "width":"400px"}}><div className="d-flex align-items-start justify-content-center border border-success m-2">
             <div className="d-flex p-2"><Image height={"60px"} src={logoMap[reseller]}></Image></div>
             <div className="d-flex p-2"><h2>$ {props.sneaker.lowestResellPrice ? props.sneaker.lowestResellPrice[reseller] : resellRange}</h2></div>
         </div></a>)

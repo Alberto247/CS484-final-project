@@ -1,8 +1,40 @@
 const SneaksAPI = require('sneaks-api');
 const sneaks = new SneaksAPI();
 const fetch = require("node-fetch")
+const Redis = require("ioredis");
 
 export const handler = async (event, context, callback) => {
+
+	let redis_password = process.env.REDIS_PASSWORD;
+    let client=undefined;
+	if(redis_password!=undefined){
+        try{
+		    client = new Redis("redis://default:"+redis_password+"@us1-key-cow-39211.upstash.io:39211");
+            const data = await client.get("most_popular");
+            if(data!=null){
+                const parsedData=JSON.parse(data);
+                const now = Math.floor(Date.now() / 1000);
+                if(now<parsedData["time"]+60*10){
+                    let oldRet=parsedData["data"];
+                    console.log("Getting data from redis as it is not stale yet");
+                    return {
+                        statusCode: 200,
+                        body: JSON.stringify({
+                            products: oldRet,
+                            cached: true
+                        }),
+                        headers: {
+                            'Allow-Access-Control-Origin': '*'
+                        }
+                    };
+                }
+            }
+        } catch (err){
+            console.error(err);
+        }
+	}else{
+		console.error("REDIS_PASSWORD env variable not found, disabling cache.");
+	}
 	
 	let ret = undefined;
 	let wrong = ["shirt, jersey, bag, trousers, cap, pants"];
@@ -34,10 +66,15 @@ export const handler = async (event, context, callback) => {
 		});
 	}
 
+    if(client!=undefined){
+        client.set("most_popular", JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}));
+    }
+
 	return {
 		statusCode: 200,
 		body: JSON.stringify({
-			products: ret
+			products: ret,
+            cached: false
 		}),
 		headers: {
 			'Allow-Access-Control-Origin': '*'

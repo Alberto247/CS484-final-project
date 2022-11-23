@@ -8,7 +8,6 @@ import { useState } from "react";
 
 function Topbar(props){
   const navigate = useNavigate()
-
   return(
     <Navbar expand="lg" sticky="top" bg="dark" variant="dark">
       <Container fluid>
@@ -16,7 +15,7 @@ function Topbar(props){
       <span style={{ color: 'white', marginLeft: '1em', fontSize: 25 }}>Sneakerscanner</span>
       </Navbar.Brand>
       <SearchBar setSneakers={props.setSneakers} setSearch={props.setSearch} setLoading={props.setLoading} setActivePage={props.setActivePage}/>
-      {props.isLoggedIn ?
+      {props.session!==null ?
         <Button variant="light" active onClick={() => { props.signOut(); navigate("/"); }}>
             Logout
         </Button> :
