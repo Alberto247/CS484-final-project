@@ -9,25 +9,29 @@ function Signup(props){
     const [repeatedPwd, setRepeatedPwd] = useState('');
     const supabase = props.supabase
 
-    async function signupSubmit(){
-        
-        if(repeatedPwd === password) {
-            const { user, session, error } = await supabase.auth.signUp({
-                email: username,
-                password: password,
-            });
-            console.log(user);
-            console.log(session);
-            if(error){
-                console.log(error);
-                props.showError("Error in SignUp");
-                throw error;
-            }
-            navigate("/login");
+    const signupSubmit = async () => {
+        if(repeatedPwd===password){
+            await signup();
             props.showSuccess("Check your email address!");
-        } else {
+            navigate("/login");
+        }else{
             props.showError("Passwords are not equals");
         }
+    } 
+
+    async function signup(){
+        const { user, session, error } = await supabase.auth.signUp({
+            email: username,
+            password: password,
+        });
+        console.log(user);
+        console.log(session);
+        if(error){
+            console.log(error);
+            props.showError("Error in SignUp");
+            throw error;
+        }
+    
     }
 
     return (
