@@ -1,68 +1,54 @@
 import {Form, Button, Row, Col, Container} from 'react-bootstrap';
 import { useState } from 'react';
 import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 
 function Login(props){
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const supabase = props.supabase
-   
-    const loginSubmit = async ()=>{
-        await signInWithEmail()
-        props.setLoggedIn(true)
-        navigate("/")
-    }
+    const supabase = props.supabase;
 
-    
     async function signInWithEmail() {
         const { data, error } = await supabase.auth.signInWithPassword({
           email: username,
-          password: password,
-        })
-        console.log(data)
+          password: password
+        });
+        console.log(data);
         if(error){
-            console.log(error)
-            props.showError("Something went wrong :(")
-            throw error
+            console.log(error);
+            props.showError("Something went wrong :(");
+            throw error;
         }
-       
-        props.showSuccess("Welcome back!")
-        
+        navigate("/");
+        props.setLoggedIn(true);
+        props.showSuccess("Welcome back!");
     }
-
-    
 
     async function signInWithGoogle() {
         const { data, error } = await supabase.auth.signInWithOAuth({
-          provider: 'google',
-        })
-        console.log(data)
-        if(error){
-          console.log(error)
-          props.showError("Something went wrong :(")
-          throw error
+          provider: 'google'
+        });
+        console.log(data);
+        if(error) {
+          console.log(error);
+          props.showError("Something went wrong :(");
+          throw error;
         }
-        props.setLoggedIn(true)
-        props.showSuccess("Welcome back!")
-        navigate("/")
     }
 
     async function signInWithFacebook() {
         const { data, error } = await supabase.auth.signInWithOAuth({
-          provider: 'facebook',
-        })
-        console.log(data)
-        if(error){
-          console.log(error)
-          props.showError("Something went wrong :(")
-          throw error
+          provider: 'facebook'
+        });
+        console.log(data);
+        if(error) {
+          console.log(error);
+          props.showError("Something went wrong :(");
+          throw error;
         } 
-        props.setLoggedIn(true)
-        props.showSuccess("Welcome back!")
-        navigate("/")
+       
     }
     
     
@@ -70,12 +56,12 @@ function Login(props){
         <Container fluid>
           <Row className="justify-content-md-center">
             <Col sm={6}>
-            <FacebookLoginButton onClick={() => signInWithFacebook()} />
+            <FacebookLoginButton onClick={() => {signInWithFacebook();}} />
             </Col>
         </Row>
         <Row className="justify-content-md-center">
             <Col sm={6}>
-            <GoogleLoginButton onClick={() => signInWithGoogle()}    />
+            <GoogleLoginButton onClick={() => {signInWithGoogle();}}/>
             </Col>
         </Row>
         <Row className="justify-content-md-center">
@@ -87,7 +73,7 @@ function Login(props){
           <Row className="justify-content-md-center">
             <Col sm={6}>
               <h1>Login</h1>
-              <Form onSubmit={loginSubmit}>
+              <Form onSubmit={signInWithEmail}>
                 <Form.Group controlId='username' className="mb-2">
                     <Form.Label>Username</Form.Label>
                     <Form.Control type='email' value={username} placeholder="Email" onChange={ev => setUsername(ev.target.value)} required={true} />
@@ -104,7 +90,7 @@ function Login(props){
             </Col>
           </Row>
       </Container>
-      )
+      );
 }
 
 export {Login};

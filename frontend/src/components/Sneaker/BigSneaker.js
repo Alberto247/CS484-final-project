@@ -6,16 +6,23 @@ import klekt from "../../logos/klekt.png";
 import stockX from "../../logos/stockX.png";
 
 function BigSneaker(props) {
-    const logoMap={stockX:stockX,flightClub:flightClub,goat:goat, klekt:klekt}
-    const max = Math.max(...Object.values(props.sneaker.lowestResellPrice))
-    const min = Math.min(...Object.values(props.sneaker.lowestResellPrice))
-    const resellRange = "Price: $" + min + "-$" + max;
+    const logoMap={stockX:stockX, flightClub:flightClub, goat:goat, klekt:klekt}
+    let resellRange="Price Not available";
+    
+    if(props.sneaker.lowestResellPrice !== undefined) {
+        const max=Math.max(...Object.values(props.sneaker.lowestResellPrice));
+        const min=Math.min(...Object.values(props.sneaker.lowestResellPrice));
+        resellRange="Price: $"+min+" - $"+max;
+        if(min===max){
+            resellRange="Price: $"+min;
+        }
+    }
     const brandContained = props.sneaker.shoeName.includes(props.sneaker.brand)
 
-    const priceList = Object.keys(props.sneaker.lowestResellPrice).map((reseller) => {
-        return (<a href={props.sneaker.resellLinks[reseller]} style={{textDecoration: "none", color:"black", "width":"400px"}}><div className="d-flex align-items-start justify-content-center border border-success m-2">
+    const priceList = Object.keys(props.sneaker.resellLinks).map((reseller) => {
+        return (<a href={props.sneaker.resellLinks[reseller]} target="_blank" rel="noreferrer" style={{textDecoration: "none", color:"black", "width":"400px"}}><div className="d-flex align-items-start justify-content-center border border-success m-2">
             <div className="d-flex p-2"><Image height={"60px"} src={logoMap[reseller]}></Image></div>
-            <div className="d-flex p-2"><h2>$ {props.sneaker.lowestResellPrice[reseller]}</h2></div>
+            <div className="d-flex p-2"><h2>$ {props.sneaker.lowestResellPrice ? props.sneaker.lowestResellPrice[reseller] : resellRange}</h2></div>
         </div></a>)
     })
 
@@ -32,7 +39,7 @@ function BigSneaker(props) {
                 <h1>{brandContained ? props.sneaker.shoeName : props.sneaker.brand + " " + props.sneaker.shoeName}</h1>
             </div>
             <div className="d-flex p-2">
-                <h2><center>{props.sneaker.description.replace("<p>", "").replace("</p>","")}</center></h2>
+                <h2><center>{props.sneaker.description ? props.sneaker.description.replace("<p>", "").replace("</p>","") : ""}</center></h2>
             </div>
             <div className="d-flex p-2">
                 {resellRange}

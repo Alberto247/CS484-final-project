@@ -44,6 +44,7 @@
   align-items:space-between;
   justify-content:space-between;
   flex-wrap:wrap;
+  
 }
 
 .sneaker-img {
@@ -53,3 +54,8 @@
   max-width: 500px;
 }
 
+.card-img-top {
+  width: 100%;
+  height: 25vw;
+  object-fit: cover;
+}
