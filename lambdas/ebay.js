@@ -1,23 +1,16 @@
-import eBayApi from 'ebay-api';
+const eBayApi = require('ebay-api');
 
-export const handler = async () => {
+const handler = async () => {
 
     const eBay = new eBayApi({
-    appId: '-- also called Client ID --',
-    certId: '-- also called Client Secret --',
-    sandbox: false
+    appId: 'DaivideP-SneakerS-SBX-ea27d63e4-590d5e99',
+    certId: 'SBX-a27d63e48ec7-1833-453c-b948-a50e',
+    sandbox: true
     });
-    
 
-    eBay.buy.browse.search({
+    let ret=await eBay.buy.browse.search({
         q: 'sneakers',
     })
-    .then(result => {
-        ret = result
-    })
-    .catch(e => {
-        console.log(e);
-    });
 
     return {
         statusCode: 200,
@@ -27,3 +20,5 @@ export const handler = async () => {
     };
 
 }
+
+handler().then((e)=>{console.log(e)})

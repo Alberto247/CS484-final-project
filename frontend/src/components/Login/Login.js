@@ -26,7 +26,6 @@ function Login(props){
             throw error;
         }
         navigate("/");
-        props.setLoggedIn(true);
         props.showSuccess("Welcome back!");
     }
 

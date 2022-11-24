@@ -1,11 +1,6 @@
 import Pagination from 'react-bootstrap/Pagination';
-import { useEffect } from 'react';
 
 function Pag(props) {
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   const getSneakers = async (i) => {
     props.setLoading(true);
@@ -17,6 +12,7 @@ function Pag(props) {
     } else {
       throw product;
     }
+    window.scrollTo(0, 0);
     props.setLoading(false);
   };
 
