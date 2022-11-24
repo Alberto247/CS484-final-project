@@ -16,10 +16,10 @@ export const handler = async (event, context, callback) => {
 
 	let redis_password = process.env.REDIS_PASSWORD;
     let client=undefined;
-	if(redis_password!=undefined){
-        try{
+	if(redis_password!=undefined) {
+        try {
 		    client = new Redis("redis://default:"+redis_password+"@us1-key-cow-39211.upstash.io:39211");
-            const data = await client.get("search="+s);
+            const data = await client.get("search="+s+"&page="+i);
             if(data!=null){
                 const parsedData=JSON.parse(data);
                 const now = Math.floor(Date.now() / 1000);
@@ -76,7 +76,7 @@ export const handler = async (event, context, callback) => {
 	}
 
 	if(client!=undefined){
-        client.set("search="+s, JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}));
+        client.set("search="+s+"&page="+i, JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}), "ex", 60*10);
     }
 
 	return {

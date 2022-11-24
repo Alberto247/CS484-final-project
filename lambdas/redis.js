@@ -14,7 +14,7 @@ const handler = async (event, context, callback) => {
             if(data!=null){
                 const parsedData=JSON.parse(data);
                 const now = Math.floor(Date.now() / 1000);
-                if(now<parsedData["time"]+60*10){
+                if(now<parsedData["time"]+60*10){ 
                     let oldRet=parsedData["data"];
                     console.log("Getting data from redis as it is not stale yet");
                     return {
@@ -70,7 +70,7 @@ const handler = async (event, context, callback) => {
 	}
 
     if(client!=undefined){
-        client.set("most_popular", JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}));
+        client.set("most_popular", JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}), "ex", 60);
     }
 
 	return {

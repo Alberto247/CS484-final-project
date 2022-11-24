@@ -2,10 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Heart from "react-heart"
-import {useState} from "react"
 
 function Sneaker(props) {
-    const [active, setActive] = useState(false)
     const navigate = useNavigate();
     let resellRange="Price Not available";
     
@@ -29,11 +27,11 @@ function Sneaker(props) {
                     <Card.Text style={{textDecoration: "none", color:"white", "width":"200px"}}>
                     {resellRange}
                     </Card.Text>
-                    <Card.Text>
+                    {props.session!==null && <Card.Text>
                         <div style={{ width: "2rem" }}>
-                        <Heart isActive={active} onClick={() => setActive(!active)}animationTrigger = "both" inactiveColor = "rgba(255,50,100,.75)" activeColor = "#fb3958" style = {{marginTop:'1rem'}} animationDuration = {0.1}/>
+                        <Heart isActive={props.isFavourite} onClick={() => {props.changeFavourite(props.sneaker);}}animationTrigger = "both" inactiveColor = "rgba(255,50,100,.75)" activeColor = "#fb3958" style = {{marginTop:'1rem'}} animationDuration = {0.1}/>
                     </div>
-                    </Card.Text>
+                    </Card.Text>}
                     <Button variant="success" onClick={(ev)=>{navigate("/view/"+props.sneaker.shoeName);}}>Show prices</Button>
                 </Card.Body>
             </Card>
