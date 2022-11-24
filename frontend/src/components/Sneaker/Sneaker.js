@@ -21,7 +21,7 @@ function Sneaker(props) {
         <div className="d-flex p-2 flex-column">
         
             <Card className="sneaker-main-card" style={{ height: '100%', backgroundColor:'#293133' }}>
-                <Card.Img className="card-img-top" variant="top" src={props.sneaker.thumbnail}/>
+                <Card.Img className="card-img-top" variant="top" src={props.sneaker.thumbnail} onClick={(ev)=>{navigate("/view/"+props.sneaker.shoeName);}} style={{cursor: 'pointer'}}/>
                 <Card.Body>
                     <Card.Title style={{textDecoration: "none", color:"white", "width":"400px"}}>{brandContained ? props.sneaker.shoeName : props.sneaker.brand+" "+props.sneaker.shoeName}</Card.Title>
                     <Card.Text style={{textDecoration: "none", color:"white", "width":"200px"}}>
