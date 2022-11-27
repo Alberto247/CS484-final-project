@@ -54,9 +54,9 @@ function SneakerTable(props) {
         <>
             <div className="d-flex mt-3 justify-content-center" ><h1>{search ? "Results for: " + search : "Most popular sneakers"}</h1></div>
             <div className="d-flex flex-row mb-3 align-items-center justify-content-center justify-content-sm-center flex-wrap m-5">
-                {props.sneakers.map((e) => { return <div key={e._id} className="p-2"><Sneaker fromFavourite={false} isFavourite={props.favourites?.map((e) => e.productId).includes(e._id)} sneaker={e} changeFavourite={props.changeFavourite} session={props.session}> </Sneaker></div> })}
+                {props.sneakers.length !==0 ? props.sneakers.map((e) => { return <div key={e._id} className="p-2"><Sneaker fromFavourite={false} isFavourite={props.favourites?.map((e) => e.productId).includes(e._id)} sneaker={e} changeFavourite={props.changeFavourite} session={props.session}> </Sneaker></div> }): <h1>404 - Sneaker not found</h1>}
             </div>
-            {props.sneakers.length > 0 && search !== undefined ? <div className="d-flex mb-3 justify-content-center" ><Pag setSneakers={props.setSneakers} setLoading={props.setLoading} search={search} page={page} /></div> : ""}
+            {props.sneakers.length > 0 && search !== undefined ? <div className="d-flex mb-3 justify-content-center" ><Pag sneakers={props.sneakers} search={search} page={page} /></div> : ""}
         </>
     );
 }

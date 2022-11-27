@@ -28,8 +28,8 @@ function BigSneaker(props) {
     const brandContained = props.sneaker.shoeName.includes(props.sneaker.brand)
 
     const priceList = Object.keys(props.sneaker.resellLinks).map((reseller) => {
-        return (<a href={props.sneaker.resellLinks[reseller]} target="_blank" rel="noreferrer" style={{textDecoration: "none", color:"black", "width":"400px"}}><div className="d-flex align-items-start justify-content-center border border-success m-2">
-            <div className="d-flex p-2"><Image height={"60px"} src={logoMap[reseller]}></Image></div>
+        return (<a href={props.sneaker.resellLinks[reseller]} target="_blank" rel="noreferrer" style={{textDecoration: "none", color:"black", "width":"100%"}}><div className="d-flex align-items-start justify-content-center border border-success m-2">
+            <div className="d-flex p-2"><Image height={"30vh"} src={logoMap[reseller]}></Image></div>
             <div className="d-flex p-2"><h2>$ {props.sneaker.lowestResellPrice ? props.sneaker.lowestResellPrice[reseller] : resellRange}</h2></div>
         </div></a>)
     })
@@ -58,10 +58,8 @@ function BigSneaker(props) {
 
     return (
         <div>
-        <main class="container">
-            <div class="left-column">
-                <img src={props.sneaker.thumbnail} alt=""></img>
-            </div>
+        <main className="container d-flex justify-content-center align-items-center flex-column flex-sm-column flex-md-row flex-lg-row flex-xl-row">
+                <img style={{maxWidth:"70%"}} src={props.sneaker.thumbnail} alt=""></img>
 
             <div className="right-column d-flex flex-column">
                 <div class="product-description">
@@ -70,17 +68,15 @@ function BigSneaker(props) {
                 </div>
                 <div class="product-price">
                 {resellRange}
-                </div>            
+                </div>   
+                <h2>Buy from your favourite website!</h2>
+            
+                {priceList}
+                            
             </div>
         </main>
         
-        <div className='container d-flex flex-column'>
         
-            <h2>Buy from your favourite website!</h2>
-            <div className='d-flex flex-row'>
-                    {priceList}
-                    </div>
-        </div>
         </div>
         
       );

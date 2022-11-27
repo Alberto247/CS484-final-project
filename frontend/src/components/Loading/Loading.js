@@ -1,4 +1,5 @@
-import Spinner from 'react-bootstrap/Spinner';
+import '../../App.css';
+import logo from "../../logos/logo.png";
 function Loading(props) {
 
     return (
@@ -9,11 +10,7 @@ function Loading(props) {
             height: '100vh',
           }}>
         <div>
-            <p>Loading...</p> 
-        </div>
-        <div>
-            <Spinner animation="border" role="status">
-            </Spinner>
+            <img style={{animation: `spin 3s linear infinite`}} src={logo} alt="img"/>
         </div>
         </div>)
 }

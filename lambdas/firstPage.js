@@ -40,7 +40,7 @@ export const handler = async (event, context, callback) => {
 	let ret = undefined;
 	
 	//sneaks API
-	sneaks.getMostPopular(16, function(err, products) { 
+	sneaks.getMostPopular(14, function(err, products) { 
 		if(products) {
 			ret = products;
 		}
