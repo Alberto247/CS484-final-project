@@ -24,9 +24,9 @@ export const handler = async (event, context, callback) => {
                             products: oldRet,
                             cached: true
                         }),
-                        headers: {
-                            'Allow-Access-Control-Origin': '*'
-                        }
+						headers: {
+							'Access-Control-Allow-Origin': '*'
+						}
                     };
                 }
             }
