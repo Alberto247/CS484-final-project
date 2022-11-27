@@ -85,7 +85,10 @@ export const handler = async (event, context, callback) => {
 		statusCode: 200,
 		body: JSON.stringify({
 			products: ret
-		})
+		}),
+		headers: {
+			'Access-Control-Allow-Origin': '*'
+		}
 	};
 	
 }

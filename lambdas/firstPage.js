@@ -78,7 +78,7 @@ export const handler = async (event, context, callback) => {
             cached: false
 		}),
 		headers: {
-			'Allow-Access-Control-Origin': '*'
+			'Access-Control-Allow-Origin': '*'
 		}
 	};
 	
