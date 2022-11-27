@@ -38,8 +38,8 @@
 }
 
 .sneaker-main-card {
-  width: 434px;
-  height: 468px;
+  width: auto;
+  height: auto;
   display:flex;
   align-items:space-between;
   justify-content:space-between;
@@ -48,16 +48,17 @@
   
 }
 
-/*.sneaker-img {
+.sneaker-img {
     display: block;
       width: 100%;
       height: auto;
       position: absolute;
       bottom: 0;
-}*/
+
+}
 
 .card-img-top {
   width: 100%;
-  height: auto;
+  height: 300px;
   object-fit: cover;
 }
