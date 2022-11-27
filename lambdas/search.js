@@ -26,6 +26,7 @@ export const handler = async (event, context, callback) => {
                 if(now<parsedData["time"]+60*10){
                     let oldRet=parsedData["data"];
                     console.log("Getting data from redis as it is not stale yet");
+					await client.quit();
                     return {
                         statusCode: 200,
                         body: JSON.stringify({
@@ -77,6 +78,7 @@ export const handler = async (event, context, callback) => {
 
 	if(client!=undefined){
         client.set("search="+s+"&page="+i, JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}), "ex", 60*10);
+		await client.quit();
     }
 
 	return {

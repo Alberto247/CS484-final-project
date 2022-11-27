@@ -4,9 +4,17 @@ import flightClub from "../../logos/flightClub.png";
 import goat from "../../logos/goat.png";
 import klekt from "../../logos/klekt.png";
 import stockX from "../../logos/stockX.png";
+import DOMPurify from 'dompurify';
+import { Loading } from '../Loading/Loading';
+import "./../../Sneaker.css";
+
 
 function BigSneaker(props) {
-    const logoMap={stockX:stockX, flightClub:flightClub, goat:goat, klekt:klekt}
+
+    if(!props.sneaker)
+        return <Loading/>;
+    
+    const logoMap={stockX:stockX, flightClub:flightClub, goat:goat, klekt:klekt};
     let resellRange="Price Not available";
     
     if(props.sneaker.lowestResellPrice !== undefined) {
@@ -26,7 +34,7 @@ function BigSneaker(props) {
         </div></a>)
     })
 
-    return (
+   /*  return (
         <div className="d-flex p-2 flex-column align-items-center justify-content-center">
             <div className="d-flex p-2">
                 <Image
@@ -39,14 +47,43 @@ function BigSneaker(props) {
                 <h1>{brandContained ? props.sneaker.shoeName : props.sneaker.brand + " " + props.sneaker.shoeName}</h1>
             </div>
             <div className="d-flex p-2">
-                <h2><center>{props.sneaker.description ? props.sneaker.description.replace("<p>", "").replace("</p>","") : ""}</center></h2>
+                <h2><center><div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(props.sneaker.description)}}></div></center></h2>
             </div>
             <div className="d-flex p-2">
                 {resellRange}
             </div>
             {priceList}
         </div>
-    )
+    ) */
+
+    return (
+        <main class="container">
+            <div class="left-column">
+                <img src={props.sneaker.thumbnail} alt="" class="active"></img>
+            </div>
+
+            <div className="right-column d-flex flex-column">
+                <div class="product-description">
+                    <h1>{brandContained ? props.sneaker.shoeName : props.sneaker.brand + " " + props.sneaker.shoeName}</h1>
+                    <p><div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(props.sneaker.description)}}></div></p>
+                </div>
+                <div class="product-price">
+                {resellRange}
+                </div>
+                <div>
+                    {priceList}
+                </div>
+                
+            </div>
+
+           
+           
+             
+            
+
+        </main>
+        
+      );
 }
 
 export { BigSneaker };

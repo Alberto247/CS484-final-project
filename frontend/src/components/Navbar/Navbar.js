@@ -13,13 +13,13 @@ function Topbar(props) {
   return (
     <Navbar expand="lg" sticky="top" bg="dark" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="#/" onClick={() => { props.getInitSneakers(); props.setSearch(""); }}>
+        <Navbar.Brand href="#/" onClick={() => { navigate("/"); }}>
           <span style={{ color: 'white', marginLeft: '1em', fontSize: 25 }}>SneakerScanner</span>
         </Navbar.Brand>
         <SearchBar setSneakers={props.setSneakers} setSearch={props.setSearch} setLoading={props.setLoading} setActivePage={props.setActivePage} />
         {props.session !== null ?
           <>
-            <Dropdown align={{ lg: 'end' }}>
+            <Dropdown align={'end'}>
 
               <Dropdown.Toggle as={PersonCircle} size={50} style={{
                 paddingRight: 0,
@@ -33,8 +33,9 @@ function Topbar(props) {
               <Dropdown.Menu>
 
 
+                
+                <Dropdown.Item onClick={()=> {navigate("/favourites")}}>Favourites</Dropdown.Item>
                 <Dropdown.Item onClick={() => { props.signOut(); navigate("/"); }}>Logout</Dropdown.Item>
-                <Dropdown.Item>Favorite</Dropdown.Item>
                 </Dropdown.Menu>
           </Dropdown>
               </>
@@ -56,19 +57,6 @@ function SearchBar(props) {
   const navigate = useNavigate()
   const [input, setInput] = useState("");
 
-  const getSneakers = async () => {
-    props.setLoading(true);
-    const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=1&search=' + input);
-    const product = await response.json();
-    if (response.ok) {
-      console.log(product.products.length);
-      props.setSneakers(product.products);
-    } else {
-      throw product;
-    }
-    window.scrollTo(0, 0);
-    props.setLoading(false);
-  };
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -79,10 +67,7 @@ function SearchBar(props) {
     e.preventDefault();
     if (input.length > 0) {
       setInput("");
-      navigate("/");
-      props.setSearch(input);
-      props.setActivePage(1);
-      await getSneakers();
+      navigate("/search/"+input+"/"+1);
     }
   };
 
