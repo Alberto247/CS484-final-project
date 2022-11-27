@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom'
 import { useState } from "react";
 import { PersonCircle } from "react-bootstrap-icons";
+import logo from "../../logos/navbar.png";
 
 function Topbar(props) {
   const navigate = useNavigate()
@@ -14,6 +15,13 @@ function Topbar(props) {
     <Navbar expand="lg" sticky="top" bg="dark" variant="dark">
       <Container fluid>
         <Navbar.Brand href="#/" onClick={() => { navigate("/"); }}>
+          <img
+              src={logo}
+              width="50px"
+              height="50px"
+              className="d-inline-block align-top"
+              alt="SneakerScanner logo"
+            />
           <span style={{ color: 'white', marginLeft: '1em', fontSize: 25 }}>SneakerScanner</span>
         </Navbar.Brand>
         <SearchBar setSneakers={props.setSneakers} setSearch={props.setSearch} setLoading={props.setLoading} setActivePage={props.setActivePage} />

@@ -30,6 +30,7 @@ function SneakerFinder(props){
             if(result.length !== 0) {
                 setToLoad(result[0]);
             }
+            window.scrollTo(0, 0);
             setLoading(false);
         };
 

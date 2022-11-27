@@ -47,10 +47,10 @@ export const handler = async (event, context, callback) => {
 	}
 
 	//sneaks API
-	sneaks.getProducts(s, 16*i, function(err, products){
+	sneaks.getProducts(s, 14*i, function(err, products){
 		if(products) {
-			if(products.length >= 16)
-				ret = products.slice(-16);
+			if(products.length >= 14)
+				ret = products.slice(-14);
 			else
 				ret = products;
 		}
