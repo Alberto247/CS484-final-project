@@ -14,7 +14,7 @@ function SneakerTable(props) {
     useEffect(() => {
         const getSneakers = async () => {
             setLoading(true);
-            const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=' + page + '&search=' + search);
+            const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=' + page + '&search=' + encodeURIComponent(search));
             const product = await response.json();
             if (response.ok) {
                 console.log(product.products.length);
@@ -31,7 +31,7 @@ function SneakerTable(props) {
             const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/firstPage');
             const product = await response.json();
             if (response.ok) {
-                // console.log(product.products.length);
+                console.log(product.products.length);
                 setSneakers(product.products);
             } else {
                 throw product;

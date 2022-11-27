@@ -57,9 +57,10 @@ function BigSneaker(props) {
     ) */
 
     return (
+        <div>
         <main class="container">
             <div class="left-column">
-                <img src={props.sneaker.thumbnail} alt="" class="active"></img>
+                <img src={props.sneaker.thumbnail} alt=""></img>
             </div>
 
             <div className="right-column d-flex flex-column">
@@ -69,19 +70,18 @@ function BigSneaker(props) {
                 </div>
                 <div class="product-price">
                 {resellRange}
-                </div>
-                <div>
-                    {priceList}
-                </div>
-                
+                </div>            
             </div>
-
-           
-           
-             
-            
-
         </main>
+        
+        <div className='container d-flex flex-column'>
+        
+            <h2>Buy from your favourite website!</h2>
+            <div className='d-flex flex-row'>
+                    {priceList}
+                    </div>
+        </div>
+        </div>
         
       );
 }

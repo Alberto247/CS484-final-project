@@ -61,7 +61,7 @@ export const handler = async (event, context, callback) => {
 	if(unparsed) {
 		unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];
 		unparsed.forEach((e) => {
-			let newElem = {"_id":e.productId, "shoeName":e.productName, "brand": e.brandNames.length>0?e.brandNames[0]:"", "thumbnail":e.productAsset.preview, "description":e.description, "lowestResellPrice":{"klekt":e.priceWithTax.min/100}, "resellLinks":{"klekt":"https://www.klekt.com/product/"+e.slug}};
+			let newElem = {"_id":e.productId, "shoeName":e.productName, "brand": e.brandNames?.length>0?e.brandNames[0]:"", "thumbnail":e.productAsset?.preview, "description":e.description, "lowestResellPrice":{"klekt":e.priceWithTax.min/100}, "resellLinks":{"klekt":"https://www.klekt.com/product/"+e.slug}};
 			ret.push(newElem);
 		});
 	}

@@ -28,9 +28,9 @@ The first version of our app offers the following features:
 - When a search is performed pagination appears and allows to change result pages
 
 ## Final product
-In the final version of our app we would like to add/enhance the following functionalities:
-- Check that the results returned are all sneakers
+In the final version of our app we have added the following functionalities:
 - Enhance layout of the site
 - A user can create its own list of favourite shoes
 - A user can be notified by email when the price goes under a certain threshold 
-- Add [Ebay](https://developer.ebay.com/develop/apis) APIs to have more results
+- Cache results in a REDIS for 10 minutes
+- Site accessible by specific links to shoes or searches
