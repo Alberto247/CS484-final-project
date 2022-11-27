@@ -45,7 +45,7 @@ function Sneaker(props) {
             <div className="d-flex p-2 flex-column">
 
                 <Card className="sneaker-main-card" style={{ height: '100%', backgroundColor: '#293133', width: "90vw" }}>
-                    <Card.Img className="card-img-top" variant="top" src={props.sneaker.thumbnail} onClick={(ev) => { navigate("/view/" + props.sneaker.shoeName); }} style={{ cursor: 'pointer' }} />
+                    <Card.Img className="card-img-top" variant="top" src={props.sneaker.thumbnail} onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }} style={{ cursor: 'pointer' }} />
                     <Card.Body>
                         <Card.Title style={{ textDecoration: "none", color: "white" }}><span className="d-inline-block text-truncate" style={{ maxWidth: "80vw" }}>{brandContained ? props.sneaker.shoeName : props.sneaker.brand + " " + props.sneaker.shoeName}</span></Card.Title>
                         <Card.Text style={{ textDecoration: "none", color: "white" }}>
@@ -53,7 +53,7 @@ function Sneaker(props) {
                         </Card.Text>
                         <div className="d-flex ">
                             <div className="p-2">
-                                <Button variant="success" onClick={(ev) => { navigate("/view/" + props.sneaker.shoeName); }}>Show prices</Button>
+                                <Button variant="success" onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }}>Show prices</Button>
                             </div>
                             {props.fromFavourite ?
                                 <div className="p-2">
@@ -80,7 +80,7 @@ function Sneaker(props) {
             <div className="d-flex p-2 flex-column">
 
                 <Card className="sneaker-main-card" style={{ height: '100%', backgroundColor: '#293133', width: "25vw" }}>
-                    <Card.Img className="card-img-top" variant="top" src={props.sneaker.thumbnail} onClick={(ev) => { navigate("/view/" + props.sneaker.shoeName); }} style={{ cursor: 'pointer' }} />
+                    <Card.Img className="card-img-top" variant="top" src={props.sneaker.thumbnail} onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }} style={{ cursor: 'pointer' }} />
                     <Card.Body>
                         <Card.Title style={{ textDecoration: "none", color: "white" }}><span className="d-inline-block text-truncate" style={{ maxWidth: "23vw" }}>{brandContained ? props.sneaker.shoeName : props.sneaker.brand + " " + props.sneaker.shoeName}</span></Card.Title>
                         <Card.Text style={{ textDecoration: "none", color: "white" }}>
@@ -93,7 +93,7 @@ function Sneaker(props) {
                         </Card.Text>}
                         <div className="d-flex ">
                             <div className="p-2">
-                                <Button variant="success" onClick={(ev) => { navigate("/view/" + props.sneaker.shoeName); }}>Show prices</Button>
+                                <Button variant="success" onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }}>Show prices</Button>
                             </div>
                             {props.fromFavourite ?
                                 <div className="p-2">

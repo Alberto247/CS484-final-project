@@ -15,7 +15,7 @@ function SneakerFinder(props){
             let result;
             setLoading(true);
             if(!sneakers.map((e)=>e.shoeName).includes(sneaker)) {
-                const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=1&search=' + sneaker);
+                const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=1&search=' + encodeURIComponent(sneaker));
                 const product = await response.json();
                 if(response.ok) {
                     setSneakers(product.products);

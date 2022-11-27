@@ -67,7 +67,7 @@ function SearchBar(props) {
     e.preventDefault();
     if (input.length > 0) {
       setInput("");
-      navigate("/search/"+input+"/"+1);
+      navigate("/search/"+encodeURIComponent(input)+"/"+1);
     }
   };
 

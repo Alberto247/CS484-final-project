@@ -111,6 +111,7 @@ function App() {
         <Route path='/view/:sneaker' element={<SneakerFinder sneakers={sneakers} setSneakers={setSneakers} loading={loading} setLoading={setLoading} />}></Route>
         <Route path='/favourites' element={session==null?<Navigate to="/"></Navigate>:<Favourites showSuccess={showSuccess} loading={loading} setThreshold={setThreshold} favourites={favourites} session={session} changeFavourite={changeFavourite} />}> </Route>
         <Route path="/search/:search/:page" element={<SneakerTable favourites={favourites} sneakers={sneakers} changeFavourite={changeFavourite} setSneakers={setSneakers} loading={loading} setLoading={setLoading} session={session} />} />
+        <Route path="*" element={<Navigate to="/"></Navigate>}></Route>
       </Routes>
     </HashRouter>
   </>
