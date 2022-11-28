@@ -6,7 +6,7 @@ const Redis = require("ioredis");
 export const handler = async (event, context, callback) => {
 
 	let redis_password = process.env.REDIS_PASSWORD;
-    let client=undefined;
+    let client = undefined;
 	if(redis_password!=undefined){
         try{
 		    client = new Redis("redis://default:"+redis_password+"@us1-key-cow-39211.upstash.io:39211");
@@ -40,7 +40,7 @@ export const handler = async (event, context, callback) => {
 	let ret = undefined;
 	
 	//sneaks API
-	sneaks.getMostPopular(14, function(err, products) { 
+	sneaks.getMostPopular(7, function(err, products) { 
 		if(products) {
 			ret = products;
 		}

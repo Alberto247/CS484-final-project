@@ -25,7 +25,7 @@ function Topbar(props) {
               className="d-inline-block align-top"
               alt="SneakerScanner logo"
             />
-          <span style={{ color: 'white', marginLeft: '1em', fontSize: 25 }}>SneakerScanner</span>
+          <span style={{ color: 'white', marginLeft: '1em', fontSize: 30 }}>SneakerScanner</span>
           </Navbar.Brand>
       </Col>
       <Col lg={3} className="text-center">
@@ -36,7 +36,7 @@ function Topbar(props) {
       <Col>
         <Navbar.Collapse className="justify-content-end">
         <Nav className="justify-content-end">{props.session !== null ? 
-            <><Nav.Link href="/favourites">Favourites</Nav.Link>
+            <><Nav.Link onClick={() => {navigate('/favourites')}}>Favourites</Nav.Link>
             <Nav.Link onClick={() => {navigate('/about')}}>About</Nav.Link>
             <Nav.Link onClick={() => {props.signOut(); navigate("/");}}>Logout</Nav.Link></>
           :

@@ -15,7 +15,7 @@ export const handler = async (event, context, callback) => {
 	}
 
 	let redis_password = process.env.REDIS_PASSWORD;
-    let client=undefined;
+    let client = undefined;
 	if(redis_password!=undefined) {
         try {
 		    client = new Redis("redis://default:"+redis_password+"@us1-key-cow-39211.upstash.io:39211");
@@ -94,7 +94,7 @@ export const handler = async (event, context, callback) => {
         client.set("search="+s+"&page="+i, JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}), "ex", 60*10);
 		await client.quit();
     }
-	console.log(sneaksOver, klektOver);
+
 	const over = sneaksOver && klektOver;
 	return {
 		statusCode: 200,
