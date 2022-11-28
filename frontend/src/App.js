@@ -1,18 +1,18 @@
 import './App.css';
-import { HashRouter, Route, Routes, Navigate } from 'react-router-dom'
-import { Topbar } from './components/Navbar/Navbar.js'
-import { Login } from './components/Login/Login.js'
+import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { Topbar } from './components/Navbar/Navbar.js';
+import { Login } from './components/Login/Login.js';
 import { useEffect, useState } from 'react';
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
 import { Signup } from './components/Login/Signup';
 import { SneakerTable } from './components/Sneaker/SneakerTable';
 import { SneakerFinder } from './components/Sneaker/SneakerFinder';
-import { Favourites } from './components/Favourites/Favourites'
+import { Favourites } from './components/Favourites/Favourites';
 import { ToastContainer, toast } from "react-toastify";
-import {About} from './components/HelpPage/Help'
+import {About} from './components/HelpPage/Help';
 import "react-toastify/dist/ReactToastify.css";
 
-const supabase = createClient('https://otbiiqvlokfkqkyekqlm.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90YmlpcXZsb2tma3FreWVrcWxtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc1OTQ0MTYsImV4cCI6MTk4MzE3MDQxNn0.Am6ZmsQnKvDy7pEM1af-LkYlZkVV8QzupW3gdcoLbzc')
+const supabase = createClient('https://otbiiqvlokfkqkyekqlm.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90YmlpcXZsb2tma3FreWVrcWxtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc1OTQ0MTYsImV4cCI6MTk4MzE3MDQxNn0.Am6ZmsQnKvDy7pEM1af-LkYlZkVV8QzupW3gdcoLbzc');
 
 function App() {
 

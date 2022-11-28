@@ -67,3 +67,12 @@
   from {transform:rotate(0deg);}
   to {transform:rotate(360deg);}
 }
+
+.text-style{
+  color: #111;
+  font-size: 275px; 
+  font-weight: bold; 
+  letter-spacing: -1px; 
+  line-height: 1; 
+  text-align: center;
+}
