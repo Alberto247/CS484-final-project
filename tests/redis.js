@@ -14,7 +14,7 @@ const handler = async (event, context, callback) => {
             if(data!=null){
                 const parsedData=JSON.parse(data);
                 const now = Math.floor(Date.now() / 1000);
-                if(now<parsedData["time"]+60*10){ 
+                if(now<parsedData["time"]+60*10){
                     let oldRet=parsedData["data"];
                     console.log("Getting data from redis as it is not stale yet");
 					await client.quit();
@@ -24,9 +24,9 @@ const handler = async (event, context, callback) => {
                             products: oldRet,
                             cached: true
                         }),
-                        headers: {
-                            'Allow-Access-Control-Origin': '*'
-                        }
+						headers: {
+							'Access-Control-Allow-Origin': '*'
+						}
                     };
                 }
             }
@@ -37,14 +37,10 @@ const handler = async (event, context, callback) => {
 		console.error("REDIS_PASSWORD env variable not found, disabling cache.");
 	}
 	
-
-
-	
 	let ret = undefined;
-	let wrong = ["shirt, jersey, bag, trousers, cap, pants"];
 	
 	//sneaks API
-	sneaks.getMostPopular(16, function(err, products) { 
+	sneaks.getMostPopular(14, function(err, products) { 
 		if(products) {
 			ret = products;
 		}
@@ -55,6 +51,7 @@ const handler = async (event, context, callback) => {
 	while(ret === undefined){
 		await new Promise(r => setTimeout(r, 100));
 	}
+	console.log(ret.length);
 
 	//klekt
 	const data = await (await fetch("https://www.klekt.com/brands")).text();
@@ -65,13 +62,13 @@ const handler = async (event, context, callback) => {
 	if(unparsed) {
 		unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];
 		unparsed.forEach((e) => {
-			let newElem = {"productId":e.productId, "shoeName":e.productName, "brand": e.categoryNames.length>0?e.categoryNames[0]:"", "thumbnail":e.productAsset.preview, "description":e.description, "lowestResellPrice":{"klekt":e.priceWithTax.min/100}, "resellLinks":{"klekt":"https://www.klekt.com/product/"+e.slug}};
+			let newElem = {"_id":e.productId, "shoeName":e.productName, "brand": e.brandNames?.length>0?e.brandNames[0]:"", "thumbnail":e.productAsset?.preview, "description":e.description, "lowestResellPrice":{"klekt":e.priceWithTax.min/100}, "resellLinks":{"klekt":"https://www.klekt.com/product/"+e.slug}};
 			ret.push(newElem);
 		});
 	}
 
     if(client!=undefined){
-        client.set("most_popular", JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}), "ex", 60);
+        client.set("most_popular", JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}), "ex", 60*10);
 		await client.quit();
     }
 
@@ -82,7 +79,7 @@ const handler = async (event, context, callback) => {
             cached: false
 		}),
 		headers: {
-			'Allow-Access-Control-Origin': '*'
+			'Access-Control-Allow-Origin': '*'
 		}
 	};
 	

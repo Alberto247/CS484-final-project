@@ -9,6 +9,7 @@ import { SneakerTable } from './components/Sneaker/SneakerTable';
 import { SneakerFinder } from './components/Sneaker/SneakerFinder';
 import { Favourites } from './components/Favourites/Favourites'
 import { ToastContainer, toast } from "react-toastify";
+import {About} from './components/HelpPage/Help'
 import "react-toastify/dist/ReactToastify.css";
 
 const supabase = createClient('https://otbiiqvlokfkqkyekqlm.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im90YmlpcXZsb2tma3FreWVrcWxtIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Njc1OTQ0MTYsImV4cCI6MTk4MzE3MDQxNn0.Am6ZmsQnKvDy7pEM1af-LkYlZkVV8QzupW3gdcoLbzc')
@@ -111,7 +112,9 @@ function App() {
         <Route path='/view/:sneaker' element={<SneakerFinder sneakers={sneakers} setSneakers={setSneakers} loading={loading} setLoading={setLoading} />}></Route>
         <Route path='/favourites' element={session==null?<Navigate to="/"></Navigate>:<Favourites showSuccess={showSuccess} loading={loading} setThreshold={setThreshold} favourites={favourites} session={session} changeFavourite={changeFavourite} />}> </Route>
         <Route path="/search/:search/:page" element={<SneakerTable favourites={favourites} sneakers={sneakers} changeFavourite={changeFavourite} setSneakers={setSneakers} loading={loading} setLoading={setLoading} session={session} />} />
+        <Route path="/about" element={<About/>}></Route>
         <Route path="*" element={<Navigate to="/"></Navigate>}></Route>
+        
       </Routes>
     </HashRouter>
   </>

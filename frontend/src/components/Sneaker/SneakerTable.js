@@ -3,15 +3,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Pag } from '../Pagination/Pagination';
 import { Loading } from '../Loading/Loading';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function SneakerTable(props) {
-
     let { search, page } = useParams();
-
+    const [end, setEnd] = useState(false);
     const setLoading = props.setLoading;
     const setSneakers = props.setSneakers;
+
     useEffect(() => {
+        
         const getSneakers = async () => {
             setLoading(true);
             const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=' + page + '&search=' + encodeURIComponent(search));
@@ -19,6 +20,7 @@ function SneakerTable(props) {
             if (response.ok) {
                 console.log(product.products.length);
                 setSneakers(product.products);
+                setEnd(product.end);
             } else {
                 throw product;
             }
@@ -56,7 +58,7 @@ function SneakerTable(props) {
             <div className="d-flex flex-row mb-3 align-items-center justify-content-center justify-content-sm-center flex-wrap m-5">
                 {props.sneakers.length !==0 ? props.sneakers.map((e) => { return <div key={e._id} className="p-2"><Sneaker fromFavourite={false} isFavourite={props.favourites?.map((e) => e.productId).includes(e._id)} sneaker={e} changeFavourite={props.changeFavourite} session={props.session}> </Sneaker></div> }): <h1>404 - Sneaker not found</h1>}
             </div>
-            {props.sneakers.length > 0 && search !== undefined ? <div className="d-flex mb-3 justify-content-center" ><Pag sneakers={props.sneakers} search={search} page={page} /></div> : ""}
+            {props.sneakers.length > 0 && search !== undefined ? <div className="d-flex mb-3 justify-content-center" ><Pag end={end} search={search} page={page} /></div> : ""}
         </>
     );
 }
