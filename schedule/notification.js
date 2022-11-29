@@ -44,7 +44,7 @@ const sendMail = async (options) => {
 
 const checkThreshold = async () => {
     //retrieve of favorite shoes
-    const { data, error } = await supabase.from('preferred_shoes').select(`productInfo, productId, threshold`);
+    const { data, error } = await supabase.from('preferred_shoes').select(`user_id, productInfo, productId, threshold`);
     if (error) {
         console.log(error);
         throw error;

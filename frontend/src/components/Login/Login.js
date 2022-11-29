@@ -10,8 +10,8 @@ function Login(props){
     const [password, setPassword] = useState('');
     const supabase = props.supabase;
 
-    if(props.session!==null){
-      navigate("/")
+    if(props.session!==null) {
+      navigate("/");
     }
 
     async function signInWithEmail() {
@@ -87,7 +87,7 @@ function Login(props){
                     <Form.Control type='password' value={password} placeholder="Password" onChange={ev => setPassword(ev.target.value)} required={true} minLength={6}/>
                 </Form.Group>
     
-                <Button type="submit"  variant="secondary">Login</Button> <Button variant="link" onClick={() => navigate('/signup')}>Sign Up</Button>
+                <Button type="submit" variant="secondary">Login</Button> <Button variant="link" onClick={() => navigate('/signup')}>Sign Up</Button>
                 
               </Form>
             </Col>

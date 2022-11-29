@@ -5,7 +5,6 @@ const Redis = require("ioredis");
 
 export const handler = async (event, context, callback) => {
 
-	
 	let ret = undefined;
 	let i=1;
 	let s="";
@@ -21,17 +20,19 @@ export const handler = async (event, context, callback) => {
 		    client = new Redis("redis://default:"+redis_password+"@us1-key-cow-39211.upstash.io:39211");
             const data = await client.get("search="+s+"&page="+i);
             if(data!=null){
-                const parsedData=JSON.parse(data);
+                const parsedData = JSON.parse(data);
                 const now = Math.floor(Date.now() / 1000);
                 if(now<parsedData["time"]+60*10){
-                    let oldRet=parsedData["data"];
+                    const oldRet = parsedData["data"];
+					const over = parsedData["end"];
                     console.log("Getting data from redis as it is not stale yet");
 					await client.quit();
                     return {
                         statusCode: 200,
                         body: JSON.stringify({
                             products: oldRet,
-                            cached: true
+                            cached: true,
+							end: over
                         }),
 						headers: {
 							'Access-Control-Allow-Origin': '*'
@@ -90,16 +91,17 @@ export const handler = async (event, context, callback) => {
 		}
 	}
 
+	const over = sneaksOver && klektOver;
 	if(client!=undefined){
-        client.set("search="+s+"&page="+i, JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}), "ex", 60*10);
+        client.set("search="+s+"&page="+i, JSON.stringify({time:Math.floor(Date.now() / 1000), data: ret, end: over}), "ex", 60*10);
 		await client.quit();
     }
-
-	const over = sneaksOver && klektOver;
+	
 	return {
 		statusCode: 200,
 		body: JSON.stringify({
 			products: ret,
+			cached: false,
 			end: over
 		}),
 		headers: {

@@ -22,7 +22,7 @@ function Signup(props){
     async function signup(){
         const { user, session, error } = await supabase.auth.signUp({
             email: username,
-            password: password,
+            password: password
         });
         console.log(user);
         console.log(session);
@@ -36,33 +36,32 @@ function Signup(props){
 
     return (
         <Container fluid>
+            <Row className="justify-content-md-center">
+                <Col sm={6}>
+                    <h1>Sign Up</h1>
+                    <Form onSubmit={signupSubmit}>
+                    <Form.Group controlId='username' className="mb-2">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control type='email' value={username} placeholder="Email" onChange={ev => setUsername(ev.target.value)} required={true} />
+                    </Form.Group>
         
-        <Row className="justify-content-md-center">
-          <Col sm={6}>
-            <h1>Sign Up</h1>
-            <Form onSubmit={signupSubmit}>
-              <Form.Group controlId='username' className="mb-2">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control type='email' value={username} placeholder="Email" onChange={ev => setUsername(ev.target.value)} required={true} />
-              </Form.Group>
-  
-              <Form.Group controlId='password' className="mb-2">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type='password' value={password} placeholder="Password" onChange={ev => setPassword(ev.target.value)} required={true} minLength={6}/>
-              </Form.Group>
+                    <Form.Group controlId='password' className="mb-2">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type='password' value={password} placeholder="Password" onChange={ev => setPassword(ev.target.value)} required={true} minLength={6}/>
+                    </Form.Group>
 
-              <Form.Group controlId='repeat password' className="mb-2">
-                  <Form.Label>Repeat Password</Form.Label>
-                  <Form.Control type='password' value={repeatedPwd} placeholder="Repeat Password" onChange={ev => setRepeatedPwd(ev.target.value)} required={true} minLength={6}/>
-              </Form.Group>
-  
-              <Button type="submit">Sign Up</Button>
-              
-            </Form>
-          </Col>
-        </Row>
-    </Container>
-        );
+                    <Form.Group controlId='repeat password' className="mb-2">
+                        <Form.Label>Repeat Password</Form.Label>
+                        <Form.Control type='password' value={repeatedPwd} placeholder="Repeat Password" onChange={ev => setRepeatedPwd(ev.target.value)} required={true} minLength={6}/>
+                    </Form.Group>
+        
+                    <Button type="submit">Sign Up</Button>
+                    
+                    </Form>
+                </Col>
+            </Row>
+        </Container>
+    );
 }
 
 export {Signup};

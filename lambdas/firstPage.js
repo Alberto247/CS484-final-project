@@ -12,10 +12,10 @@ export const handler = async (event, context, callback) => {
 		    client = new Redis("redis://default:"+redis_password+"@us1-key-cow-39211.upstash.io:39211");
             const data = await client.get("most_popular");
             if(data!=null){
-                const parsedData=JSON.parse(data);
+                const parsedData = JSON.parse(data);
                 const now = Math.floor(Date.now() / 1000);
                 if(now<parsedData["time"]+60*10){
-                    let oldRet=parsedData["data"];
+                    const oldRet = parsedData["data"];
                     console.log("Getting data from redis as it is not stale yet");
 					await client.quit();
                     return {
