@@ -20,17 +20,18 @@ function App() {
   const [sneakers, setSneakers] = useState([]);
   const [session, setSession] = useState(null)
   const [favourites, setFavourites] = useState([]);
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session)
-      if (session !== null) {
-        retrieveFavouriteShoes()
+      setSession(session);
+      if(session !== null) {
+        retrieveFavouriteShoes();
       }
     })
 
     supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session)
+      setSession(session);
     })
 
   }, []);
@@ -40,8 +41,8 @@ function App() {
     //retrieve of favorite shoes
     const { data, error } = await supabase.from('preferred_shoes').select(`productInfo, productId, threshold`)
     if (error) {
-      console.log(error)
-      throw error
+      console.log(error);
+      throw error;
     }
     //console.log("retrieve favourite",data);
     setFavourites(data);
@@ -51,12 +52,12 @@ function App() {
     //console.log(favourites);
     if (favourites.map((e) => e.productId).includes(element._id)) {
       let newFavourites = [];
-      favourites.forEach((e) => { if (e.productId !== element._id) { newFavourites.push(e) } })
+      favourites.forEach((e) => { if (e.productId !== element._id) { newFavourites.push(e) } });
       console.log("change favourite add", newFavourites);
       setFavourites(newFavourites);
 
       try {
-        await supabase.from("preferred_shoes").delete().eq('productId', element._id)
+        await supabase.from("preferred_shoes").delete().eq('productId', element._id);
       } catch (err) {
         console.error(err);
       }
@@ -66,7 +67,7 @@ function App() {
       setFavourites(newFavourites);
       const user_id = (await supabase.auth.getSession()).data.session.user.id;
       try {
-        await supabase.from("preferred_shoes").insert({ user_id: user_id, productInfo: element, productId: element._id })
+        await supabase.from("preferred_shoes").insert({ user_id: user_id, productInfo: element, productId: element._id });
       } catch (err) {
         console.error(err);
       }
@@ -78,7 +79,7 @@ function App() {
     newFavourites.forEach((e) => { if (e.productId === productId) { e.threshold = threshold } });
     setFavourites(newFavourites);
     try {
-      await supabase.from("preferred_shoes").update({ threshold: threshold }).eq('productId', productId)
+      await supabase.from("preferred_shoes").update({ threshold: threshold }).eq('productId', productId);
     } catch (err) {
       console.error(err);
     }
@@ -98,13 +99,17 @@ function App() {
       throw error;
     }
     showSuccess("Log out");
-    setSession(null)
+    setSession(null);
   }
+
+  const drawerToggleClickHandler = () => {
+		setDrawerIsOpen(!drawerIsOpen);
+	};
 
   return (<>
     <ToastContainer />
     <HashRouter>
-      <Topbar session={session} setSneakers={setSneakers} signOut={signOut} setLoading={setLoading} favourites={favourites}></Topbar>
+      <Topbar session={session} setSneakers={setSneakers} signOut={signOut} setLoading={setLoading} favourites={favourites} toggle = {drawerToggleClickHandler}></Topbar>
       <Routes>
         <Route path="/" element={<SneakerTable favourites={favourites} sneakers={sneakers} changeFavourite={changeFavourite} setSneakers={setSneakers} loading={loading} setLoading={setLoading} session={session} />} />
         <Route path='/login' element={session!=null?<Navigate to="/"></Navigate>:<Login supabase={supabase} showSuccess={showSuccess} showError={showError} session={session} />} />

@@ -12,12 +12,17 @@ import Nav from 'react-bootstrap/Nav';
 
 function Topbar(props) {
   const navigate = useNavigate()
+  const toggle = props.toggle
   return (
-    <Navbar expand="lg" sticky="top" bg="dark" variant="dark">
+    <Navbar  expand="xl"
+    bg="dark"
+    variant="dark"
+    fixed="top"
+    collapseOnSelect>
       <Container fluid>
-      <Col>
+        <Col>
         <Navbar.Brand href="#/" onClick={() => { navigate("/"); }}>
-        
+
           <img
               src={logo}
               width="50px"
@@ -27,33 +32,30 @@ function Topbar(props) {
             />
           <span style={{ color: 'white', marginLeft: '1em', fontSize: 30 }}>SneakerScanner</span>
           </Navbar.Brand>
-      </Col>
-      <Col lg={3} className="text-center">
-          <Nav className="ms-auto">
-        <SearchBar setSneakers={props.setSneakers} setSearch={props.setSearch} setLoading={props.setLoading} setActivePage={props.setActivePage} />
-        </Nav>
-      </Col>
-      <Col>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav className="justify-content-end">{props.session !== null ? 
-            <><Nav.Link onClick={() => {navigate('/favourites')}}>Favourites</Nav.Link>
-            <Nav.Link onClick={() => {navigate('/about')}}>About</Nav.Link>
-            <Nav.Link onClick={() => {props.signOut(); navigate("/");}}>Logout</Nav.Link></>
-          :
-          <><Nav.Link onClick={() => {navigate('/login')}}>Favourites</Nav.Link>
-            <Nav.Link onClick={() => {navigate('/about')}}>About</Nav.Link>
-            <Nav.Link onClick={() => {navigate('/login')}}>Login</Nav.Link></>}
-          </Nav>
-         
-        </Navbar.Collapse>
-        </Col>  
-
-              {/*props.session !== null ?
-              <Button variant="light" active onClick={() => { props.signOut(); navigate("/"); }}>
-                Logout
-              </Button> :
-        <Button variant="light" active onClick={() => navigate('/login')}>Login</Button>*/}
-           
+          <Navbar.Toggle
+              className="ml-3 mb-2"
+              aria-controls="responsive-navbar-nav"
+              onClick={toggle}
+            />
+        </Col>
+        <Navbar.Collapse id="basic-navbar-nav">
+            <Col className="text-center">
+            <Nav className="justify-content-center">
+                <SearchBar setSneakers={props.setSneakers} setSearch={props.setSearch} setLoading={props.setLoading} setActivePage={props.setActivePage} />
+               </Nav>
+              </Col>
+              <Col>
+            <Nav className="justify-content-end">{props.session !== null ? 
+                <><Nav.Link onClick={() => {navigate('/favourites')}}>Favourites</Nav.Link>
+                <Nav.Link onClick={() => {navigate('/about')}}>About</Nav.Link>
+                <Nav.Link onClick={() => {props.signOut(); navigate("/");}}>Logout</Nav.Link></>
+              :
+              <><Nav.Link onClick={() => {navigate('/login')}}>Favourites</Nav.Link>
+                <Nav.Link onClick={() => {navigate('/about')}}>About</Nav.Link>
+                <Nav.Link onClick={() => {navigate('/login')}}>Login</Nav.Link></>}
+              </Nav>
+          </Col>
+          </Navbar.Collapse>
       </Container>
     </Navbar>
   )
