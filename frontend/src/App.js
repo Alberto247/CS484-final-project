@@ -20,6 +20,7 @@ function App() {
   const [sneakers, setSneakers] = useState([]);
   const [session, setSession] = useState(null)
   const [favourites, setFavourites] = useState([]);
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -101,10 +102,14 @@ function App() {
     setSession(null);
   }
 
+  const drawerToggleClickHandler = () => {
+		setDrawerIsOpen(!drawerIsOpen);
+	};
+
   return (<>
     <ToastContainer />
     <HashRouter>
-      <Topbar session={session} setSneakers={setSneakers} signOut={signOut} setLoading={setLoading} favourites={favourites}></Topbar>
+      <Topbar session={session} setSneakers={setSneakers} signOut={signOut} setLoading={setLoading} favourites={favourites} toggle = {drawerToggleClickHandler}></Topbar>
       <Routes>
         <Route path="/" element={<SneakerTable favourites={favourites} sneakers={sneakers} changeFavourite={changeFavourite} setSneakers={setSneakers} loading={loading} setLoading={setLoading} session={session} />} />
         <Route path='/login' element={session!=null?<Navigate to="/"></Navigate>:<Login supabase={supabase} showSuccess={showSuccess} showError={showError} session={session} />} />

@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Heart from "react-heart"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import { Row, Col } from "react-bootstrap";
 
 function Sneaker(props) {
     const [input, setInput] = useState(props.threshold ? "$ " + props.threshold : "$ ");
@@ -51,24 +53,43 @@ function Sneaker(props) {
                         <Card.Text style={{ textDecoration: "none", color: "white" }}>
                             {resellRange}
                         </Card.Text>
-                        <div className="d-flex ">
-                            <div className="p-2">
-                                <Button variant="success" onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }}>Show prices</Button>
+                        {props.session !== null ? <>
+                            <Row>
+                            <Col lg={2} md="auto" className=".justify-content-start">
+                            <div style={{ width: "2rem" }}>
+                                <Heart isActive={props.isFavourite} onClick={() => { props.changeFavourite(props.sneaker); }} animationTrigger="both" inactiveColor="rgba(255,50,100,.75)" activeColor="#fb3958" style={{ marginTop: '1rem' }} animationDuration={0.1} />
                             </div>
+                            </Col>
+                            <Col md="auto" className=".justify-content-start">
+                                <Button variant="success" onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }}>Show prices</Button>
+                            </Col>
+                            
+                            </Row>
+                            </> 
+                            :
+                            <>
+                             <Col md="auto" className=".justify-content-start">
+                                <Button variant="success" onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }}>Show prices</Button>
+                            </Col>
+                            </>
+
+                        }
                             {props.fromFavourite ?
-                                <div className="p-2">
-                                    <Form className="d-flex" onSubmit={handleSubmit} style={{ maxWidth: "100px" }}>
-                                        <Form.Control
-                                            placeholder="Price threshold"
-                                            className="d-flex"
-                                            onChange={handleChange}
-                                            aria-label="Price threshold"
-                                            value={input}
-                                        />
-                                    </Form>
-                                </div> : <></>
+                                    <InputGroup className="mb-4">
+                                    <Form.Control
+                                    placeholder="Set the threshold"
+                                    aria-label="Set the threshold"
+                                    aria-describedby="basic-addon2"
+                                    onChange={handleChange}
+                                    value={input}
+                                    />
+                                    <Button variant="outline-success" onClick={handleSubmit}>
+                                    Set threshold
+                                    </Button>
+                                </InputGroup>
+                                 : <></>    
                             }
-                        </div>
+                        
                     </Card.Body>
                 </Card>
             </div>
@@ -86,29 +107,47 @@ function Sneaker(props) {
                         <Card.Text style={{ textDecoration: "none", color: "white" }}>
                             {resellRange}
                         </Card.Text>
-                        {props.session !== null && <Card.Text>
+                        {props.session !== null ? <>
+                            <Row>
+                            <Col lg={2} md="auto" className=".justify-content-start">
                             <div style={{ width: "2rem" }}>
                                 <Heart isActive={props.isFavourite} onClick={() => { props.changeFavourite(props.sneaker); }} animationTrigger="both" inactiveColor="rgba(255,50,100,.75)" activeColor="#fb3958" style={{ marginTop: '1rem' }} animationDuration={0.1} />
                             </div>
-                        </Card.Text>}
-                        <div className="d-flex ">
-                            <div className="p-2">
+                            </Col>
+                            <Col md="auto" className=".justify-content-start">
                                 <Button variant="success" onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }}>Show prices</Button>
-                            </div>
+                            </Col>
+                            
+                            </Row>
+                            </> 
+                            :
+                            <>
+                             <Col md="auto" className=".justify-content-start">
+                                <Button variant="success" onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }}>Show prices</Button>
+                            </Col>
+                            </>
+
+                        }
+                        
                             {props.fromFavourite ?
+                                
                                 <div className="p-2">
-                                    <Form className="d-flex" onSubmit={handleSubmit} style={{ maxWidth: "100px" }}>
-                                        <Form.Control
-                                            placeholder="Price threshold"
-                                            className="d-flex"
-                                            onChange={handleChange}
-                                            aria-label="Price threshold"
-                                            value={input}
-                                        />
-                                    </Form>
-                                </div> : <></>
+                                
+                                <InputGroup className="mb-1">
+                                    <Form.Control
+                                    placeholder="Set the threshold"
+                                    aria-label="Set the threshold"
+                                    aria-describedby="basic-addon2"
+                                    onChange={handleChange}
+                                    value={input}
+                                    />
+                                    <Button variant="outline-success" onClick={handleSubmit}>
+                                    Set threshold
+                                    </Button>
+                                </InputGroup>
+                                </div>: <></>
                             }
-                        </div>
+                        
                     </Card.Body>
                 </Card>
             </div>
