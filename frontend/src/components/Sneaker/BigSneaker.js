@@ -7,6 +7,7 @@ import stockX from "../../logos/stockX.png";
 import DOMPurify from 'dompurify';
 import { Loading } from '../Loading/Loading';
 import "./../../Sneaker.css";
+import Heart from "react-heart"
 
 
 function BigSneaker(props) {
@@ -34,27 +35,6 @@ function BigSneaker(props) {
         </div></a>)
     })
 
-   /*  return (
-        <div className="d-flex p-2 flex-column align-items-center justify-content-center">
-            <div className="d-flex p-2">
-                <Image
-                    src={props.sneaker.thumbnail}
-                    rounded
-                    height={"500vh"}
-                />
-            </div>
-            <div className="d-flex p-2">
-                <h1>{brandContained ? props.sneaker.shoeName : props.sneaker.brand + " " + props.sneaker.shoeName}</h1>
-            </div>
-            <div className="d-flex p-2">
-                <h2><center><div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(props.sneaker.description)}}></div></center></h2>
-            </div>
-            <div className="d-flex p-2">
-                {resellRange}
-            </div>
-            {priceList}
-        </div>
-    ) */
 
     return (
         <div>
@@ -62,12 +42,18 @@ function BigSneaker(props) {
                 <img style={{maxWidth:"70%"}} src={props.sneaker.thumbnail} alt=""></img>
 
             <div className="right-column d-flex flex-column">
-                <div class="product-description">
+                <div className="product-description">
                     <h1>{brandContained ? props.sneaker.shoeName : props.sneaker.brand + " " + props.sneaker.shoeName}</h1>
                     <p><div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(props.sneaker.description)}}></div></p>
                 </div>
-                <div class="product-price">
+                <div style={{ width: "2rem" }}>
+                    <Heart isActive={props.isFavourite} onClick={() => { props.changeFavourite(props.sneaker); }} animationTrigger="both" inactiveColor="rgba(255,50,100,.75)" activeColor="#fb3958" animationDuration={0.1} />
+                    
+                </div>
+                <p>Add to your favourites list!</p>
+                <div className="product-price">
                 {resellRange}
+                
                 </div>   
                 <h2>Buy from your favourite website!</h2>
             

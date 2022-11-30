@@ -2,6 +2,7 @@ const SneaksAPI = require('sneaks-api');
 const sneaks = new SneaksAPI();
 const fetch = require("node-fetch")
 const Redis = require("ioredis");
+var crypto = require('crypto')
 
 export const handler = async (event, context, callback) => {
 
@@ -75,6 +76,8 @@ export const handler = async (event, context, callback) => {
 				ret.push(newElem);
 		});
 	}
+
+	ret.forEach((e)=>{e._id=crypto.createHash('sha256').update(e.shoeName).digest('hex');})
 
     if(client!=undefined){
         client.set("most_popular", JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}), "ex", 60*10);

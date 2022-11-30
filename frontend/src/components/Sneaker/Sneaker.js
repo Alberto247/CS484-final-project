@@ -57,7 +57,7 @@ function Sneaker(props) {
                             <Row>
                             <Col lg={2} md="auto" className=".justify-content-start">
                             <div style={{ width: "2rem" }}>
-                                <Heart isActive={props.isFavourite} onClick={() => { props.changeFavourite(props.sneaker); }} animationTrigger="both" inactiveColor="rgba(255,50,100,.75)" activeColor="#fb3958" style={{ marginTop: '1rem' }} animationDuration={0.1} />
+                                <Heart isActive={props.isFavourite} onClick={() => { props.changeFavourite(props.sneaker); }} animationTrigger="both" inactiveColor="rgba(255,50,100,.75)" activeColor="#fb3958" animationDuration={0.1} />
                             </div>
                             </Col>
                             <Col md="auto" className=".justify-content-start">
@@ -111,7 +111,7 @@ function Sneaker(props) {
                             <Row>
                             <Col lg={2} md="auto" className=".justify-content-start">
                             <div style={{ width: "2rem" }}>
-                                <Heart isActive={props.isFavourite} onClick={() => { props.changeFavourite(props.sneaker); }} animationTrigger="both" inactiveColor="rgba(255,50,100,.75)" activeColor="#fb3958" style={{ marginTop: '1rem' }} animationDuration={0.1} />
+                                <Heart isActive={props.isFavourite} onClick={() => { props.changeFavourite(props.sneaker); }} animationTrigger="both" inactiveColor="rgba(255,50,100,.75)" activeColor="#fb3958"  animationDuration={0.1} />
                             </div>
                             </Col>
                             <Col md="auto" className=".justify-content-start">
