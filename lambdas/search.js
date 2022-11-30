@@ -2,6 +2,7 @@ const SneaksAPI = require('sneaks-api');
 const sneaks = new SneaksAPI();
 const fetch = require("node-fetch")
 const Redis = require("ioredis");
+var crypto = require('crypto')
 
 export const handler = async (event, context, callback) => {
 
@@ -90,6 +91,8 @@ export const handler = async (event, context, callback) => {
 			klektOver=true;
 		}
 	}
+
+	ret.forEach((e)=>{e._id=crypto.createHash('sha256').update(e.shoeName).digest('hex');})
 
 	const over = sneaksOver && klektOver;
 	if(client!=undefined){

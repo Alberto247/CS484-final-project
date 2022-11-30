@@ -37,7 +37,7 @@ function SneakerFinder(props){
         getSneaker();
     }, [setLoading, sneakers, sneaker, setSneakers]);
 
-    return <BigSneaker sneaker={toLoad}></BigSneaker>;    
+    return <BigSneaker sneaker={toLoad} changeFavourite={props.changeFavourite} isFavourite={props.favourites?.map((e) => {return e.productId}).includes(toLoad?._id)} ></BigSneaker>;    
 }
 
 export {SneakerFinder};

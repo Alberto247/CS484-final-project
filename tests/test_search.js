@@ -2,27 +2,20 @@ const SneaksAPI = require('sneaks-api');
 const sneaks = new SneaksAPI();
 const fetch = require("node-fetch")
 const Redis = require("ioredis");
+var crypto = require('crypto')
 const handler = async (event, context, callback) => {
 
-	let ret = undefined;
-	let i=5;
-	let s="Jordan 1 Retro High OG";
-	if(event!=undefined && event.queryStringParameters!=undefined){
-		i = event.queryStringParameters.page;
-		s = event.queryStringParameters.search;
-	}
-
 	let redis_password = process.env.REDIS_PASSWORD;
-    let client=undefined;
-	if(redis_password!=undefined) {
-        try {
+    let client = undefined;
+	if(redis_password!=undefined){
+        try{
 		    client = new Redis("redis://default:"+redis_password+"@us1-key-cow-39211.upstash.io:39211");
-            const data = await client.get("search="+s+"&page="+i);
+            const data = await client.get("most_popular");
             if(data!=null){
-                const parsedData=JSON.parse(data);
+                const parsedData = JSON.parse(data);
                 const now = Math.floor(Date.now() / 1000);
                 if(now<parsedData["time"]+60*10){
-                    let oldRet=parsedData["data"];
+                    const oldRet = parsedData["data"];
                     console.log("Getting data from redis as it is not stale yet");
 					await client.quit();
                     return {
@@ -43,32 +36,28 @@ const handler = async (event, context, callback) => {
 	}else{
 		console.error("REDIS_PASSWORD env variable not found, disabling cache.");
 	}
-	let sneaksOver=false;
+	
+	let ret = undefined;
+	
 	//sneaks API
-	sneaks.getProducts(s, 14*i+1, function(err, products){
+	sneaks.getMostPopular(7, function(err, products) { 
 		if(products) {
-			console.log(products.length, 14*i-14,14*i)
-			ret = products.slice(14*i-14,14*i);
-			if(products.length!==14*i+1){
-				sneaksOver=true;
-			}
+			ret = products;
 		}
-		else
+		else 
 			ret = [];
 	});
-	
 
-	while(ret === undefined) {
+	while(ret === undefined){
 		await new Promise(r => setTimeout(r, 100));
 	}
-	
 
 	//klekt
 	const data = await (await fetch("https://www.klekt.com/brands")).text();
 	let api_path = data.split('/_buildManifest.js" defer=""></script>')[0].split('<script src="/_next/static/');
 	api_path = api_path[api_path.length - 1]
-	const api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i+"&search="+s
-	let unparsed = await(await fetch(api)).json();
+	let api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page=1"
+	let unparsed = await (await fetch(api)).json();
 	if(unparsed) {
 		unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];
 		unparsed.forEach((e) => {
@@ -76,29 +65,29 @@ const handler = async (event, context, callback) => {
 			ret.push(newElem);
 		});
 	}
-	let klektOver=false;
-	if(unparsed.length!==16){
-		klektOver=true;
-	}else{
-		const api2 = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i+"&search="+s
-		let unparsed2 = await(await fetch(api2)).json();
-		unparsed2 = unparsed2["pageProps"]["plpData"]["data"]["search"]["items"];
-		if(unparsed2.length===0){
-			klektOver=true;
-		}
+	api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page=2"
+	unparsed = await (await fetch(api)).json();
+	if(unparsed) {
+		unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];
+		unparsed.forEach((e) => {
+			let newElem = {"_id":e.productId, "shoeName":e.productName, "brand": e.brandNames?.length>0?e.brandNames[0]:"", "thumbnail":e.productAsset?.preview, "description":e.description, "lowestResellPrice":{"klekt":e.priceWithTax.min/100}, "resellLinks":{"klekt":"https://www.klekt.com/product/"+e.slug}};
+			if(ret.length < 30)
+				ret.push(newElem);
+		});
 	}
 
-	if(client!=undefined){
-        client.set("search="+s+"&page="+i, JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}), "ex", 60*10);
+	ret.forEach((e)=>{e._id=crypto.createHash('sha256').update(e.shoeName).digest('hex');})
+
+    if(client!=undefined){
+        client.set("most_popular", JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}), "ex", 60*10);
 		await client.quit();
     }
-	console.log(sneaksOver, klektOver);
-	const over = sneaksOver && klektOver;
+
 	return {
 		statusCode: 200,
 		body: JSON.stringify({
 			products: ret,
-			end: over
+            cached: false
 		}),
 		headers: {
 			'Access-Control-Allow-Origin': '*'

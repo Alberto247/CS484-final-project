@@ -13,7 +13,7 @@ The user has also the possibility to create a list of favourite sneakers, and re
 While our web app would not have sensitive data, it should keep the users accounts and the vendor data secure.
 
 ## Link to the site
-[Sneakerscanner](https://fluffy-dusk-8cf61e.netlify.app/)
+[Sneakerscanner](https://sneakerscanner.shop/)
 
 ## Tech stack diagram
 ![image](cs484.jpg)
@@ -29,8 +29,12 @@ The first version of our app offers the following features:
 
 ## Final product
 In the final version of our app we have added the following functionalities:
-- Enhance layout of the site
+- Enhanced layout of the site
 - A user can create its own list of favourite shoes
-- A user can be notified by email when the price goes under a certain threshold 
+- A user can be notified by email when the price goes under a certain specified threshold
+- About page with information of the site
 - Cache results in a REDIS for 10 minutes
 - Site accessible by specific links to shoes or searches
+
+## Easter egg
+In the site there's also an hidden easter egg... enjoy finding it!

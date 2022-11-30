@@ -53,7 +53,7 @@ function App() {
     if (favourites.map((e) => e.productId).includes(element._id)) {
       let newFavourites = [];
       favourites.forEach((e) => { if (e.productId !== element._id) { newFavourites.push(e) } });
-      console.log("change favourite add", newFavourites);
+      console.log("change favourite remove", newFavourites);
       setFavourites(newFavourites);
 
       try {
@@ -64,6 +64,7 @@ function App() {
     } else {
       let newFavourites = favourites.slice();
       newFavourites.push({ productInfo: element, productId: element._id, thresold: null });
+      console.log("change favourite add", newFavourites);
       setFavourites(newFavourites);
       const user_id = (await supabase.auth.getSession()).data.session.user.id;
       try {
@@ -110,17 +111,19 @@ function App() {
     <ToastContainer />
     <HashRouter>
       <Topbar session={session} setSneakers={setSneakers} signOut={signOut} setLoading={setLoading} favourites={favourites} toggle = {drawerToggleClickHandler}></Topbar>
+      <div style={{paddingTop:"100px"}}>
       <Routes>
         <Route path="/" element={<SneakerTable favourites={favourites} sneakers={sneakers} changeFavourite={changeFavourite} setSneakers={setSneakers} loading={loading} setLoading={setLoading} session={session} />} />
         <Route path='/login' element={session!=null?<Navigate to="/"></Navigate>:<Login supabase={supabase} showSuccess={showSuccess} showError={showError} session={session} />} />
         <Route path='/signup' element={session!=null?<Navigate to="/"></Navigate>:<Signup supabase={supabase} showSuccess={showSuccess} showError={showError} />} />
-        <Route path='/view/:sneaker' element={<SneakerFinder sneakers={sneakers} setSneakers={setSneakers} loading={loading} setLoading={setLoading} />}></Route>
+        <Route path='/view/:sneaker' element={<SneakerFinder sneakers={sneakers} setSneakers={setSneakers} loading={loading} setLoading={setLoading} changeFavourite={changeFavourite} favourites={favourites}/>}></Route>
         <Route path='/favourites' element={session==null?<Navigate to="/"></Navigate>:<Favourites showSuccess={showSuccess} loading={loading} setThreshold={setThreshold} favourites={favourites} session={session} changeFavourite={changeFavourite} />}> </Route>
         <Route path="/search/:search/:page" element={<SneakerTable favourites={favourites} sneakers={sneakers} changeFavourite={changeFavourite} setSneakers={setSneakers} loading={loading} setLoading={setLoading} session={session} />} />
         <Route path="/about" element={<About/>}></Route>
         <Route path="*" element={<Navigate to="/"></Navigate>}></Route>
         
       </Routes>
+      </div>
     </HashRouter>
   </>
   );
