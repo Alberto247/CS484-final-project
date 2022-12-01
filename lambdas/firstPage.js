@@ -80,7 +80,6 @@ export const handler = async (event, context, callback) => {
 	const newRet=[];
 	for(let e of ret){
 		tmp=crypto.createHash('sha256').update(e.shoeName).digest('hex');
-		e["_id"]=tmp;
 		// console.log(e)
 		newRet.push({"_id":tmp, "shoeName":e.shoeName, "brand": e.brand, "thumbnail":e.thumbnail, "description":e.description, "lowestResellPrice":e.lowestResellPrice, "resellLinks":e.resellLinks})
 	}
