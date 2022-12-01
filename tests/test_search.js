@@ -90,25 +90,19 @@ const handler = async (event, context, callback) => {
 			klektOver=true;
 		}
 	}
-
-	const newRet=[];
-	for(let e of ret){
-		tmp=crypto.createHash('sha256').update(e.shoeName).digest('hex');
-		e["_id"]=tmp;
-		// console.log(e)
-		newRet.push({"_id":tmp, "shoeName":e.shoeName, "brand": e.brand, "thumbnail":e.thumbnail, "description":e.description, "lowestResellPrice":e.lowestResellPrice, "resellLinks":e.resellLinks})
-	}
+	console.log(ret)
+	ret.forEach((e)=>{e._e._id=crypto.createHash('sha256').update(e.shoeName).digest('hex');})
 
 	const over = sneaksOver && klektOver;
 	if(client!=undefined){
-        client.set("search="+s+"&page="+i, JSON.stringify({time:Math.floor(Date.now() / 1000), data: newRet, end: over}), "ex", 60*10);
+        client.set("search="+s+"&page="+i, JSON.stringify({time:Math.floor(Date.now() / 1000), data: ret, end: over}), "ex", 60*10);
 		await client.quit();
     }
 	
 	return {
 		statusCode: 200,
 		body: JSON.stringify({
-			products: newRet,
+			products: ret,
 			cached: false,
 			end: over
 		}),
