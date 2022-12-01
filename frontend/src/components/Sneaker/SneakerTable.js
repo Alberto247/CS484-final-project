@@ -19,7 +19,6 @@ function SneakerTable(props) {
             const product = await response.json();
             if (response.ok) {
                 console.log(product.products.length);
-                console.log(product)
                 setSneakers(product.products);
                 setEnd(product.end);
             } else {

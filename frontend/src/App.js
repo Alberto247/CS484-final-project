@@ -38,18 +38,15 @@ function App() {
 
 
   const retrieveFavouriteShoes = async () => {
-    //retrieve of favorite shoes
     const { data, error } = await supabase.from('preferred_shoes').select(`productInfo, productId, threshold`)
     if (error) {
       console.log(error);
       throw error;
     }
-    //console.log("retrieve favourite",data);
     setFavourites(data);
   }
 
   const changeFavourite = async (element) => {
-    //console.log(favourites);
     if (favourites.map((e) => e.productId).includes(element._id)) {
       let newFavourites = [];
       favourites.forEach((e) => { if (e.productId !== element._id) { newFavourites.push(e) } });

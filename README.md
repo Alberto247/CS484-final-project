@@ -36,5 +36,7 @@ In the final version of our app we have added the following functionalities:
 - Cache results in a REDIS for 10 minutes
 - Site accessible by specific links to shoes or searches
 
+To test the email functionality just put a threshold higher that the current price and you should receive an email within 10 minutes.
+
 ## Easter egg
 In the site there's also an hidden easter egg... enjoy finding it!
