@@ -77,17 +77,23 @@ export const handler = async (event, context, callback) => {
 		});
 	}
 
-	ret.forEach((e)=>{e._id=crypto.createHash('sha256').update(e.shoeName).digest('hex');})
+	const newRet=[];
+	for(let e of ret){
+		tmp=crypto.createHash('sha256').update(e.shoeName).digest('hex');
+		e["_id"]=tmp;
+		// console.log(e)
+		newRet.push({"_id":tmp, "shoeName":e.shoeName, "brand": e.brand, "thumbnail":e.thumbnail, "description":e.description, "lowestResellPrice":e.lowestResellPrice, "resellLinks":e.resellLinks})
+	}
 
     if(client!=undefined){
-        client.set("most_popular", JSON.stringify({time:Math.floor(Date.now() / 1000), data:ret}), "ex", 60*10);
+        client.set("most_popular", JSON.stringify({time:Math.floor(Date.now() / 1000), data:newRet}), "ex", 60*10);
 		await client.quit();
     }
 
 	return {
 		statusCode: 200,
 		body: JSON.stringify({
-			products: ret,
+			products: newRet,
             cached: false
 		}),
 		headers: {
