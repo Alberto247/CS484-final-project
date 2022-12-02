@@ -88,7 +88,7 @@ const checkPrice = async (shoe, users) => {
                 }
             }
         }else{
-            console.error(response);
+            throw product
         }
     } catch (err) {
         console.error("Error in handle shoe", err)
