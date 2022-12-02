@@ -4,14 +4,14 @@ import { Pag } from '../Pagination/Pagination';
 import { Loading } from '../Loading/Loading';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
+//Component to show the collection of shoes in the main and search pages
 function SneakerTable(props) {
     let { search, page } = useParams();
     const [end, setEnd] = useState(false);
     const setLoading = props.setLoading;
     const setSneakers = props.setSneakers;
 
-    useEffect(() => {
+    useEffect(() => { //Load sneakers
         
         const getSneakers = async () => {
             setLoading(true);
@@ -41,9 +41,9 @@ function SneakerTable(props) {
             window.scrollTo(0, 0);
             setLoading(false);
         };
-        if(search === undefined) {
+        if(search === undefined) { //If in main page, load first page
             getInitSneakers();
-        } else {
+        } else { //Else, load proper shoes
             getSneakers();
         }
     }, [search, page, setLoading, setSneakers]);

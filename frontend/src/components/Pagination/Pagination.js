@@ -1,6 +1,6 @@
 import Pagination from 'react-bootstrap/Pagination';
 import { useNavigate } from 'react-router-dom'
-
+//Component for pagination at bottom of search
 function Pag(props) {
   const navigate = useNavigate()
 

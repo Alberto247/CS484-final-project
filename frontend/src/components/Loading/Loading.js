@@ -1,5 +1,6 @@
 import '../../App.css';
 import logo from "../../logos/logo.png";
+//Spinning logo
 function Loading(props) {
 
     return (

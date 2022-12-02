@@ -7,7 +7,7 @@ import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'   
 import logo from "../../logos/pizza_pasta_logo.png";
 const emoji="🤌"
-
+//Favourites page
 function Favourites(props) {
     const [active, setActive] = useState(false);
     const [switches, setSwitches] = useState(0);

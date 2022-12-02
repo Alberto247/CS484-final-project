@@ -9,7 +9,7 @@ import { useState } from "react";
 
 import logo from "../../logos/navbar.png";
 import Nav from 'react-bootstrap/Nav';
-
+//Component for the top bar
 function Topbar(props) {
   const navigate = useNavigate()
   const toggle = props.toggle

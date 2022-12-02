@@ -59,6 +59,7 @@ export const handler = async (event, context, callback) => {
 		}
 		else
 			ret = [];
+			sneaksOver=true;
 	});
 	
 

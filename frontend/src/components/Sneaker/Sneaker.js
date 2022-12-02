@@ -7,14 +7,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Row, Col } from "react-bootstrap";
-
+//Small component for the SneakerTable component.
 function Sneaker(props) {
     const [input, setInput] = useState(props.threshold ? "$ " + props.threshold : "$ ");
 
 
     const handleChange = (e) => {
         e.preventDefault();
-        const re = /^\$ [0-9\b]*$/;
+        const re = /^\$ [0-9\b]*$/; //Magic regex to avoid deleting the $ 
         if (e.target.value === '' || re.test(e.target.value)) {
             setInput(e.target.value);
         }

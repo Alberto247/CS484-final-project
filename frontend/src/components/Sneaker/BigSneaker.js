@@ -9,11 +9,13 @@ import { Loading } from '../Loading/Loading';
 import "./../../Sneaker.css";
 import Heart from "react-heart"
 
-
+//Large shoe component
 function BigSneaker(props) {
 
-    if(!props.sneaker)
+    if(props.sneaker===undefined)
         return <Loading/>;
+    if(props.sneaker===null) //If null, shoe could not be found
+        return <center>404 - Sneaker not found</center>;
     
     const logoMap={stockX:stockX, flightClub:flightClub, goat:goat, klekt:klekt};
     let resellRange="Price Not available";
