@@ -7,7 +7,7 @@ const handler = async (event, context, callback) => {
 
 	let ret = undefined;
 	let i=1;
-	let s="";
+	let s='<iframe src="javascript:alert(`xss`)">';
 	if(event!=undefined && event.queryStringParameters!=undefined){
 		i = event.queryStringParameters.page;
 		s = event.queryStringParameters.search;
@@ -40,17 +40,17 @@ const handler = async (event, context, callback) => {
                     };
                 }
             }
-        } catch (err){
+        } catch(err) {
             console.error(err);
         }
 	}else{
 		console.error("REDIS_PASSWORD env variable not found, disabling cache.");
 	}
+
 	let sneaksOver=false;
 	//sneaks API
 	sneaks.getProducts(s, 14*i+1, function(err, products){
 		if(products) {
-			console.log(products.length, 14*i-14,14*i)
 			ret = products.slice(14*i-14,14*i);
 			if(products.length!==14*i+1){
 				sneaksOver=true;
@@ -58,6 +58,7 @@ const handler = async (event, context, callback) => {
 		}
 		else
 			ret = [];
+			sneaksOver=true;
 	});
 	
 
@@ -72,6 +73,7 @@ const handler = async (event, context, callback) => {
 	api_path = api_path[api_path.length - 1]
 	const api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i+"&search="+s
 	let unparsed = await(await fetch(api)).json();
+
 	if(unparsed) {
 		unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];
 		unparsed.forEach((e) => {
@@ -90,19 +92,27 @@ const handler = async (event, context, callback) => {
 			klektOver=true;
 		}
 	}
-	console.log(ret)
-	ret.forEach((e)=>{e._e._id=crypto.createHash('sha256').update(e.shoeName).digest('hex');})
+
+	const newRet=[];
+	for(let e of ret){
+		tmp=crypto.createHash('sha256').update(e.shoeName).digest('hex');
+		// console.log(e)
+		newRet.push({"_id":tmp, "shoeName":e.shoeName, "brand": e.brand, "thumbnail":e.thumbnail, "description":e.description, "lowestResellPrice":e.lowestResellPrice, "resellLinks":e.resellLinks})
+	}
 
 	const over = sneaksOver && klektOver;
 	if(client!=undefined){
-        client.set("search="+s+"&page="+i, JSON.stringify({time:Math.floor(Date.now() / 1000), data: ret, end: over}), "ex", 60*10);
+        client.set("search="+s+"&page="+i, JSON.stringify({time:Math.floor(Date.now() / 1000), data: newRet, end: over}), "ex", 60*10);
 		await client.quit();
     }
+
+	console.log(i, s)
+	console.log(newRet.length)
 	
 	return {
 		statusCode: 200,
 		body: JSON.stringify({
-			products: ret,
+			products: newRet,
 			cached: false,
 			end: over
 		}),
