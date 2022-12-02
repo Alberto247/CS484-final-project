@@ -48,7 +48,7 @@ const sendMail = async (options) => {
 
 const checkPrice = async (shoe, users) => {
     try {
-        const response = await fetch('https://fluffy-dusk-8cf61e.netlify.app/.netlify/functions/search?page=1&search=' + encodeURIComponent(shoe.productInfo.shoeName));
+        const response = await fetch('https://sneakerscanner.shop/.netlify/functions/search?page=1&search=' + encodeURIComponent(shoe.productInfo.shoeName));
         const product = await response.json();
         if (response.ok) {
             let res = product.products.filter((e) => { return e.shoeName === shoe.productInfo.shoeName })[0];

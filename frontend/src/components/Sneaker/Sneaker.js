@@ -53,42 +53,41 @@ function Sneaker(props) {
                         <Card.Text style={{ textDecoration: "none", color: "white" }}>
                             {resellRange}
                         </Card.Text>
-                        {props.session !== null ? <>
-                            <Row>
-                            <Col lg={2} md="auto" className=".justify-content-start">
-                            <div style={{ width: "2rem" }}>
-                                <Heart isActive={props.isFavourite} onClick={() => { props.changeFavourite(props.sneaker); }} animationTrigger="both" inactiveColor="rgba(255,50,100,.75)" activeColor="#fb3958" animationDuration={0.1} />
-                            </div>
-                            </Col>
-                            <Col md="auto" className=".justify-content-start">
-                                <Button variant="success" onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }}>Show prices</Button>
-                            </Col>
-                            
-                            </Row>
+                        {props.session !== null ? 
+                            <>
+                                <Row>
+                                    <Col lg={2} md="auto" className=".justify-content-start">
+                                        <div style={{ width: "2rem" }}>
+                                            <Heart isActive={props.isFavourite} onClick={() => { props.changeFavourite(props.sneaker); }} animationTrigger="both" inactiveColor="rgba(255,50,100,.75)" activeColor="#fb3958" animationDuration={0.1} />
+                                        </div>
+                                    </Col>
+                                    <Col md="auto" className=".justify-content-start">
+                                        <Button variant="success" onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }}>Show prices</Button>
+                                    </Col>
+                                
+                                </Row>
                             </> 
                             :
                             <>
-                             <Col md="auto" className=".justify-content-start">
-                                <Button variant="success" onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }}>Show prices</Button>
-                            </Col>
+                                <Col md="auto" className=".justify-content-start">
+                                    <Button variant="success" onClick={(ev) => { navigate("/view/" + encodeURIComponent(props.sneaker.shoeName)); }}>Show prices</Button>
+                                </Col>
                             </>
-
                         }
-                            {props.fromFavourite ?
-                                    <InputGroup className="mb-4">
-                                    <Form.Control
-                                    placeholder="Set the threshold"
-                                    aria-label="Set the threshold"
-                                    aria-describedby="basic-addon2"
-                                    onChange={handleChange}
-                                    value={input}
-                                    />
-                                    <Button variant="outline-success" onClick={handleSubmit}>
-                                    Set threshold
-                                    </Button>
-                                </InputGroup>
-                                 : <></>    
-                            }
+                        {props.fromFavourite ?
+                            <InputGroup className="mb-4">
+                                <Form.Control
+                                placeholder="Set the threshold"
+                                aria-label="Set the threshold"
+                                aria-describedby="basic-addon2"
+                                onChange={handleChange}
+                                value={input}
+                                />
+                                <Button variant="outline-success" onClick={handleSubmit}>Set threshold</Button>
+                            </InputGroup>
+                        : 
+                            <></>    
+                        }
                         
                     </Card.Body>
                 </Card>
