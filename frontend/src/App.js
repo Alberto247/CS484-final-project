@@ -113,7 +113,7 @@ function App() {
         <Route path="/" element={<SneakerTable favourites={favourites} sneakers={sneakers} changeFavourite={changeFavourite} setSneakers={setSneakers} loading={loading} setLoading={setLoading} session={session} />} />
         <Route path='/login' element={session!=null?<Navigate to="/"></Navigate>:<Login supabase={supabase} showSuccess={showSuccess} showError={showError} session={session} />} />
         <Route path='/signup' element={session!=null?<Navigate to="/"></Navigate>:<Signup supabase={supabase} showSuccess={showSuccess} showError={showError} />} />
-        <Route path='/view/:sneaker' element={<SneakerFinder sneakers={sneakers} setSneakers={setSneakers} loading={loading} setLoading={setLoading} changeFavourite={changeFavourite} favourites={favourites}/>}></Route>
+        <Route path='/view/:sneaker' element={<SneakerFinder sneakers={sneakers} setSneakers={setSneakers} loading={loading} setLoading={setLoading} changeFavourite={changeFavourite} favourites={favourites} session={session}/>}></Route>
         <Route path='/favourites' element={session==null?<Navigate to="/"></Navigate>:<Favourites showSuccess={showSuccess} loading={loading} setThreshold={setThreshold} favourites={favourites} session={session} changeFavourite={changeFavourite} />}> </Route>
         <Route path="/search/:search/:page" element={<SneakerTable favourites={favourites} sneakers={sneakers} changeFavourite={changeFavourite} setSneakers={setSneakers} loading={loading} setLoading={setLoading} session={session} />} />
         <Route path="/about" element={<About/>}></Route>

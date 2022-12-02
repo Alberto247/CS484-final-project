@@ -51,11 +51,16 @@ function BigSneaker(props) {
                         <h1>{brandContained ? props.sneaker.shoeName : props.sneaker.brand + " " + props.sneaker.shoeName}</h1>
                         <p><div className="content" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(props.sneaker.description)}}></div></p>
                     </div>
-                    <div style={{ width: "2rem" }}>
-                        <Heart isActive={props.isFavourite} onClick={() => { props.changeFavourite(props.sneaker); }} animationTrigger="both" inactiveColor="rgba(255,50,100,.75)" activeColor="#fb3958" animationDuration={0.1} />
-                    </div>
-                    <p>Add to your favourites list!</p>
-                    
+                    {props.session !== null ? 
+                        <>
+                            <div style={{ width: "2rem" }}>
+                                <Heart isActive={props.isFavourite} onClick={() => { props.changeFavourite(props.sneaker); }} animationTrigger="both" inactiveColor="rgba(255,50,100,.75)" activeColor="#fb3958" animationDuration={0.1} />
+                            </div>
+                            <p>Add to your favourites list!</p>
+                        </>
+                    : 
+                        <></>
+                    }
                     <div className="product-price">{resellRange}</div>   
                     <h2>Buy from your favourite website!</h2>
                 
