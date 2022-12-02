@@ -73,6 +73,7 @@ export const handler = async (event, context, callback) => {
 	api_path = api_path[api_path.length - 1]
 	const api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i+"&search="+s
 	let unparsed = await(await fetch(api)).json();
+	console.log(unparsed)
 	if(unparsed.length!==0) {
 		unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];
 		unparsed.forEach((e) => {
