@@ -22,7 +22,7 @@ function App() {
   const [favourites, setFavourites] = useState([]);
   const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => { //Login + Logout use effect
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       if(session !== null) {
@@ -37,7 +37,7 @@ function App() {
   }, []);
 
 
-  const retrieveFavouriteShoes = async () => {
+  const retrieveFavouriteShoes = async () => { //Get favourites from backend
     const { data, error } = await supabase.from('preferred_shoes').select(`productInfo, productId, threshold`)
     if (error) {
       console.log(error);
@@ -46,38 +46,38 @@ function App() {
     setFavourites(data);
   }
 
-  const changeFavourite = async (element) => {
+  const changeFavourite = async (element) => { //Toggle for favourite
     if (favourites.map((e) => e.productId).includes(element._id)) {
       let newFavourites = [];
-      favourites.forEach((e) => { if (e.productId !== element._id) { newFavourites.push(e) } });
+      favourites.forEach((e) => { if (e.productId !== element._id) { newFavourites.push(e) } }); //Remove if present
       console.log("change favourite remove", newFavourites);
       setFavourites(newFavourites);
 
       try {
-        await supabase.from("preferred_shoes").delete().eq('productId', element._id);
+        await supabase.from("preferred_shoes").delete().eq('productId', element._id); //Update db
       } catch (err) {
         console.error(err);
       }
     } else {
       let newFavourites = favourites.slice();
-      newFavourites.push({ productInfo: element, productId: element._id, thresold: null });
+      newFavourites.push({ productInfo: element, productId: element._id, thresold: null }); //Add if missing
       console.log("change favourite add", newFavourites);
       setFavourites(newFavourites);
       const user_id = (await supabase.auth.getSession()).data.session.user.id;
       try {
-        await supabase.from("preferred_shoes").insert({ user_id: user_id, productInfo: element, productId: element._id });
+        await supabase.from("preferred_shoes").insert({ user_id: user_id, productInfo: element, productId: element._id }); //Update db
       } catch (err) {
         console.error(err);
       }
     }
   };
 
-  const setThreshold = async (productId, threshold) => {
+  const setThreshold = async (productId, threshold) => { //Set threshold for emails
     let newFavourites = favourites.slice();
     newFavourites.forEach((e) => { if (e.productId === productId) { e.threshold = threshold } });
-    setFavourites(newFavourites);
+    setFavourites(newFavourites); //Update state
     try {
-      await supabase.from("preferred_shoes").update({ threshold: threshold }).eq('productId', productId);
+      await supabase.from("preferred_shoes").update({ threshold: threshold }).eq('productId', productId); //Update db
     } catch (err) {
       console.error(err);
     }
