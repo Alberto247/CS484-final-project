@@ -21,7 +21,8 @@ function SneakerFinder(props){
                     setSneakers(product.products); //Update the local list of sneakers, to avoid querying many times
                     result = product.products.filter((e)=>e.shoeName===sneaker); //Set result
                 } else {
-                    throw product;
+                    console.log(product);
+                    setSneakers([]);
                 }
             }
             else{

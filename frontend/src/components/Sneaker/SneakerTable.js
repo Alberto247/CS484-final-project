@@ -22,7 +22,8 @@ function SneakerTable(props) {
                 setSneakers(product.products);
                 setEnd(product.end);
             } else {
-                throw product;
+                console.log(product);
+                setSneakers([]);
             }
             window.scrollTo(0, 0);
             setLoading(false);
@@ -36,7 +37,8 @@ function SneakerTable(props) {
                 console.log(product.products.length);
                 setSneakers(product.products);
             } else {
-                throw product;
+                console.log(product);
+                setSneakers([]);
             }
             window.scrollTo(0, 0);
             setLoading(false);
