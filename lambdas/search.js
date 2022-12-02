@@ -48,58 +48,56 @@ export const handler = async (event, context, callback) => {
 		console.error("REDIS_PASSWORD env variable not found, disabling cache.");
 	}
 
-	try {
-		let sneaksOver=false;
-		//sneaks API
-		sneaks.getProducts(s, 14*i+1, function(err, products){
-			if(products) {
-				ret = products.slice(14*i-14,14*i);
-				if(products.length!==14*i+1){
-					sneaksOver=true;
-				}
-			}
-			else
-				ret = [];
+	let sneaksOver=false;
+	//sneaks API
+	sneaks.getProducts(s, 14*i+1, function(err, products){
+		if(products) {
+			ret = products.slice(14*i-14,14*i);
+			if(products.length!==14*i+1){
 				sneaksOver=true;
-		});
-		
-
-		while(ret === undefined) {
-			await new Promise(r => setTimeout(r, 100));
-		}
-		
-
-		//klekt
-		const data = await (await fetch("https://www.klekt.com/brands")).text();
-		let api_path = data.split('/_buildManifest.js" defer=""></script>')[0].split('<script src="/_next/static/');
-		api_path = api_path[api_path.length - 1]
-		const api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i+"&search="+s
-		let unparsed = await(await fetch(api)).json();
-		if(unparsed) {
-			unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];
-			unparsed.forEach((e) => {
-				let newElem = {"_id":e.productId, "shoeName":e.productName, "brand": e.brandNames?.length>0?e.brandNames[0]:"", "thumbnail":e.productAsset?.preview, "description":e.description, "lowestResellPrice":{"klekt":e.priceWithTax.min/100}, "resellLinks":{"klekt":"https://www.klekt.com/product/"+e.slug}};
-				ret.push(newElem);
-			});
-		}
-		let klektOver=false;
-		if(unparsed.length!==16){
-			klektOver=true;
-		}else{
-			const api2 = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i+"&search="+s
-			let unparsed2 = await(await fetch(api2)).json();
-			unparsed2 = unparsed2["pageProps"]["plpData"]["data"]["search"]["items"];
-			if(unparsed2.length===0){
-				klektOver=true;
 			}
 		}
-	} catch (err) {
-        console.error("Error in handle shoe", err);
-    }
+		else
+			ret = [];
+			sneaksOver=true;
+	});
+	
+
+	while(ret === undefined) {
+		await new Promise(r => setTimeout(r, 100));
+	}
+	
+
+	//klekt
+	const data = await (await fetch("https://www.klekt.com/brands")).text();
+	let api_path = data.split('/_buildManifest.js" defer=""></script>')[0].split('<script src="/_next/static/');
+	api_path = api_path[api_path.length - 1]
+	const api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i+"&search="+s
+	let unparsed = await(await fetch(api)).json();
+
+	if(unparsed) {
+		unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];
+		unparsed.forEach((e) => {
+			let newElem = {"_id":e.productId, "shoeName":e.productName, "brand": e.brandNames?.length>0?e.brandNames[0]:"", "thumbnail":e.productAsset?.preview, "description":e.description, "lowestResellPrice":{"klekt":e.priceWithTax.min/100}, "resellLinks":{"klekt":"https://www.klekt.com/product/"+e.slug}};
+			ret.push(newElem);
+		});
+	}
+	let klektOver=false;
+	if(unparsed.length!==16){
+		klektOver=true;
+	}else{
+		const api2 = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page="+i+"&search="+s
+		let unparsed2 = await(await fetch(api2)).json();
+		unparsed2 = unparsed2["pageProps"]["plpData"]["data"]["search"]["items"];
+		if(unparsed2.length===0){
+			klektOver=true;
+		}
+	}
 
 	const newRet=[];
 	for(let e of ret){
 		tmp=crypto.createHash('sha256').update(e.shoeName).digest('hex');
+		// console.log(e)
 		newRet.push({"_id":tmp, "shoeName":e.shoeName, "brand": e.brand, "thumbnail":e.thumbnail, "description":e.description, "lowestResellPrice":e.lowestResellPrice, "resellLinks":e.resellLinks})
 	}
 
