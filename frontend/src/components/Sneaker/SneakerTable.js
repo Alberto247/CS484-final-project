@@ -48,7 +48,7 @@ function SneakerTable(props) {
         }
     }, [search, page, setLoading, setSneakers]);
 
-    if (props.loading) {
+    if(props.loading) {
         return <Loading />;
     }
 

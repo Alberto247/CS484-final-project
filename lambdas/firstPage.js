@@ -42,7 +42,7 @@ export const handler = async (event, context, callback) => {
 	
 	//sneaks API
 	sneaks.getMostPopular(7, function(err, products) { 
-		if(products) {
+		if(products.length!==0) {
 			ret = products;
 		}
 		else 
@@ -59,7 +59,7 @@ export const handler = async (event, context, callback) => {
 	api_path = api_path[api_path.length - 1]
 	let api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page=1"
 	let unparsed = await (await fetch(api)).json();
-	if(unparsed) {
+	if(unparsed.length!==0) {
 		unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];
 		unparsed.forEach((e) => {
 			let newElem = {"_id":e.productId, "shoeName":e.productName, "brand": e.brandNames?.length>0?e.brandNames[0]:"", "thumbnail":e.productAsset?.preview, "description":e.description, "lowestResellPrice":{"klekt":e.priceWithTax.min/100}, "resellLinks":{"klekt":"https://www.klekt.com/product/"+e.slug}};
@@ -68,7 +68,7 @@ export const handler = async (event, context, callback) => {
 	}
 	api = "https://www.klekt.com/_next/data/"+api_path+"/eu/list.json?category=brands&categories=brands&page=2"
 	unparsed = await (await fetch(api)).json();
-	if(unparsed) {
+	if(unparsed.length!==0) {
 		unparsed = unparsed["pageProps"]["plpData"]["data"]["search"]["items"];
 		unparsed.forEach((e) => {
 			let newElem = {"_id":e.productId, "shoeName":e.productName, "brand": e.brandNames?.length>0?e.brandNames[0]:"", "thumbnail":e.productAsset?.preview, "description":e.description, "lowestResellPrice":{"klekt":e.priceWithTax.min/100}, "resellLinks":{"klekt":"https://www.klekt.com/product/"+e.slug}};
